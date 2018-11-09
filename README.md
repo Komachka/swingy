@@ -1,2 +1,2 @@
-# swinggy
+# swingy
 rpa game
