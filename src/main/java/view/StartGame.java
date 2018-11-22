@@ -3,46 +3,77 @@ package view;
 import model.characthers.Hero;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class StartGame extends JFrame implements WindowManager {
 
+
+    public StartGame() {
+        initComponents();
+
+    }
+
     private void initComponents()
     {
-        JButton jButton = new JButton();
+        JButton selectHeroBut = new JButton();
+        JButton createNewHeroBut = new JButton();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        jButton.setText("Select Hero");
-        jButton.addActionListener(new ActionListener() {
+        selectHeroBut.setText("Select Hero");
+        selectHeroBut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                jButtonActionPerformed(event);
+                showSelectedHero();
             }
         });
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(122, Short.MAX_VALUE)
-                                .addComponent(jButton, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-                                .addGap(88,88,88))
+        createNewHeroBut.setText("Create New Hero");
+        createNewHeroBut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showNewHero();
+            }
+        });
 
-        );
-        layout.setVerticalGroup(
-                    layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(142, Short.MAX_VALUE)
-                        .addComponent(jButton)
-                        .addGap(135,135,135))
-        );
+        setSize(400,400);
+        setLayout(new GridLayout(3, 1));
+
+        JLabel headerLabel = new JLabel("Choose game settings",JLabel.CENTER);
+        headerLabel.setSize(350,100);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent windowEvent){
+                System.exit(0);
+            }
+        });
+
+        setBackground(Color.darkGray);
+        GroupLayout layout = new GroupLayout(getContentPane());
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+                .addComponent(headerLabel)
+                .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(
+                                GroupLayout.Alignment.LEADING)
+                                .addComponent(createNewHeroBut)
+                                .addComponent(selectHeroBut))));
+
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addComponent(headerLabel)
+                .addComponent(createNewHeroBut)
+                .addComponent(selectHeroBut));
+
+        setLayout(layout);
         pack();
 
+
     }
 
-    private void jButtonActionPerformed(ActionEvent event) {
-            showSelectedHero();
-    }
+
 
     public void showSelectedHero() {
         SelectHero selectHero = new SelectHero(this);
@@ -63,4 +94,7 @@ public class StartGame extends JFrame implements WindowManager {
         pack();
     }
 
+    public void start() {
+        setVisible(true);
+    }
 }
