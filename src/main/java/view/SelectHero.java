@@ -19,19 +19,15 @@ public class SelectHero extends JPanel implements ActionListener {
     private JList availableHeroes;
     //private List<Hero> heroes;
     private List<String> heroes;
-    Object [] data;
     String initialValue;
-
     private static String value = "";
 
 
 
     public SelectHero(WindowManager windowManager)  {
-       // super(dialog, "Select hero");
         this.windowManager = windowManager;
         setSize(450,400);
-        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
+        setLayout(new BorderLayout());
 
         heroes = new ArrayList<String>();
         heroes.add("Bob");
@@ -83,7 +79,6 @@ public class SelectHero extends JPanel implements ActionListener {
         setButton.setActionCommand(ACTION_SET);
         setButton.addActionListener(this);
         add(setButton);
-//        getRootPane().setDefaultButton(setButton);
 
 
 
@@ -131,7 +126,7 @@ public class SelectHero extends JPanel implements ActionListener {
             }
         });
         JScrollPane listScroller = new JScrollPane(availableHeroes);
-        listScroller.setPreferredSize(new Dimension(250, 80));
+        listScroller.setPreferredSize(new Dimension(250, 250));
         listScroller.setAlignmentX(LEFT_ALIGNMENT);
 
         //Create a container so that we can add a title around
@@ -143,9 +138,26 @@ public class SelectHero extends JPanel implements ActionListener {
         JLabel label = new JLabel("Available heroes");
         label.setLabelFor(availableHeroes);
         listPane.add(label);
-        listPane.add(Box.createRigidArea(new Dimension(0,5)));
+
+        //listPane.add(Box.createRigidArea(new Dimension(0,5)));
+
         listPane.add(listScroller);
         listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
+
+
+
+        JPanel statusPane = new JPanel();
+        statusPane.setLayout(new BoxLayout(statusPane, BoxLayout.PAGE_AXIS));
+        JLabel label2 = new JLabel("Hero status");
+        JTextArea area = new JTextArea(30, 30);
+        area.setText("Hello world");
+        label2.setLabelFor(area);
+        statusPane.add(Box.createRigidArea(new Dimension(50,5)));
+        statusPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        statusPane.add(label2);
+        statusPane.add(area);
+
 
         //Lay out the buttons from left to right.
         JPanel buttonPane = new JPanel();
@@ -156,17 +168,15 @@ public class SelectHero extends JPanel implements ActionListener {
         buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
         buttonPane.add(setButton);
 
+
+
+
         //Put everything together, using the content pane's BorderLayout.
         //Container contentPane = this;
-        add(listPane, BorderLayout.CENTER);
-        add(buttonPane, BorderLayout.PAGE_END);
-
-        //Initialize values.
+        add(listPane, BorderLayout.WEST);
+        add(statusPane, BorderLayout.EAST);
+        add(buttonPane, BorderLayout.SOUTH);
         setValue(initialValue);
-        //pack();
-        //The second Component argument should be null if you want the dialog
-        // to come up with its left corner in the center of the screen;
-       // setLocationRelativeTo(null);
 
     }
 

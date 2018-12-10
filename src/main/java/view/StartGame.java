@@ -10,7 +10,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import static view.ListDialog2.showDialog;
 
 public class StartGame extends JFrame implements WindowManager {
 
@@ -86,6 +85,8 @@ public class StartGame extends JFrame implements WindowManager {
         panel.add(selectHeroBut);
         add(panel);
         pack();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 
     }
 
@@ -127,6 +128,7 @@ public class StartGame extends JFrame implements WindowManager {
 
         setContentPane(selectHero); // we can do it because selectHero extands jframe
         pack();
+
 
     }
 
