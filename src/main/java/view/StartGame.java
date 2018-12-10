@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
+import static view.ListDialog2.showDialog;
 
 public class StartGame extends JFrame implements WindowManager {
 
@@ -88,8 +91,43 @@ public class StartGame extends JFrame implements WindowManager {
 
     public void showSelectedHero() {
         SelectHero selectHero = new SelectHero(this);
+        ArrayList<String> heroes = new ArrayList<String>();
+        String [] test = new String[]{"1", "2", "3", "4", "5"};
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+        heroes.add("Bob");
+        heroes.add("Bill");
+
+
+        //showDialog(null, null, "Lable", "Title", heroes.toArray(new String[heroes.size()]), heroes.get(0), null);
+
         setContentPane(selectHero); // we can do it because selectHero extands jframe
         pack();
+
     }
 
     public void showNewHero() {

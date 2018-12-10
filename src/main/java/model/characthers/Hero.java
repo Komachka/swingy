@@ -25,8 +25,6 @@ public abstract class Hero extends Character {
 
 
 
-
-
     @NotNull
     private Weapon weapon; // increases the attack
     @NotNull
