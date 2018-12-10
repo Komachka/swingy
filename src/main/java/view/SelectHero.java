@@ -1,6 +1,5 @@
 package view;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import model.characthers.Hero;
 
 import javax.swing.*;
@@ -11,14 +10,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import storage.HerroStorage;
 
 public class SelectHero extends JPanel implements ActionListener {
     private static SelectHero dialog;
     private static final String ACTION_SET = "Set";
     private WindowManager windowManager;
     private JList availableHeroes;
-    //private List<Hero> heroes;
-    private List<String> heroes;
+    private HerroStorage storage;
+   // private List<Hero> heroes;
+    //private List<String> heroes;
     String initialValue;
     private static String value = "";
 
@@ -26,10 +27,12 @@ public class SelectHero extends JPanel implements ActionListener {
 
     public SelectHero(WindowManager windowManager)  {
         this.windowManager = windowManager;
+        storage = new HerroStorage();
+        //heroes = storage.getAllHeroes();
         setSize(450,400);
         setLayout(new BorderLayout());
 
-        heroes = new ArrayList<String>();
+       /* heroes = new ArrayList<String>();
         heroes.add("Bob");
         heroes.add("Bill");
         heroes.add("Bob");
@@ -57,7 +60,7 @@ public class SelectHero extends JPanel implements ActionListener {
         heroes.add("Bob");
         heroes.add("Bill");
         heroes.add("Bob");
-        heroes.add("Bill");
+        heroes.add("Bill");*/
 
 
 
@@ -84,7 +87,7 @@ public class SelectHero extends JPanel implements ActionListener {
 
 
 
-        availableHeroes = new JList(heroes.toArray())
+        availableHeroes = new JList(storage.getAllHeroes().toArray())
         {
             @Override
             public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
@@ -193,7 +196,11 @@ public class SelectHero extends JPanel implements ActionListener {
         {
             System.out.println(availableHeroes.getSelectedValue().toString());
             //windowManager.showSelectedMission(heroes.get(availableHeroes.getSelectedIndex()));
+            windowManager.showSelectedMission(storage.getHero(availableHeroes.getSelectedIndex()));
+
+
         }
+        //dialog.setVisible(false);
 
 
     }

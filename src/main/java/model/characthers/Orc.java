@@ -1,4 +1,4 @@
 package model.characthers;
 
-public class Orc {
+public class Orc extends Villain {
 }

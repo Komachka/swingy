@@ -1,4 +1,4 @@
 package model.characthers;
 
-public class Elf {
+public class Elf extends Hero {
 }

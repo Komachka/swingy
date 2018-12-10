@@ -33,4 +33,13 @@ public abstract class Hero extends Character {
     private Helm helm; // increases hit points
     int level;
     int experience;
+
+
+    public Hero() {
+        this.weapon = weapon;
+        this.armor = armor;
+        this.helm = helm;
+        this.level = level;
+        this.experience = experience;
+    }
 }
