@@ -87,7 +87,7 @@ public class SelectHero extends JPanel implements ActionListener {
 
 
 
-        availableHeroes = new JList(storage.getAllHeroes().toArray())
+        availableHeroes = new JList(storage.getAllHeroeNames().toArray())
         {
             @Override
             public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {

@@ -26,6 +26,8 @@ public abstract class Hero extends Character {
 
 
     @NotNull
+    private String name;
+    @NotNull
     private Weapon weapon; // increases the attack
     @NotNull
     private Armor armor; // increase the defense
@@ -35,11 +37,16 @@ public abstract class Hero extends Character {
     int experience;
 
 
-    public Hero() {
-        this.weapon = weapon;
-        this.armor = armor;
-        this.helm = helm;
+    public Hero(@NotNull String name,@NotNull String weapon, @NotNull String armor, @NotNull String helm, int level, int experience) {
+        this.name = name;
+        this.weapon = new Weapon(weapon);
+        this.armor = new Armor(armor);
+        this.helm = new Helm(helm);
         this.level = level;
         this.experience = experience;
+    }
+
+    public String getName() {
+        return name;
     }
 }
