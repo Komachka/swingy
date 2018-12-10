@@ -3,7 +3,6 @@ package view;
 import model.characthers.Hero;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,16 +11,23 @@ import java.awt.event.WindowEvent;
 
 public class StartGame extends JFrame implements WindowManager {
 
+    private JButton selectHeroBut;
+    private JButton createNewHeroBut;
+    private JLabel headerLabel;
+
 
     public StartGame() {
+        super("Swingy");
+        setSize(450,400);
         initComponents();
 
     }
 
+
     private void initComponents()
     {
-        JButton selectHeroBut = new JButton();
-        JButton createNewHeroBut = new JButton();
+        selectHeroBut = new JButton();
+        createNewHeroBut = new JButton();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         selectHeroBut.setText("Select Hero");
         selectHeroBut.addActionListener(new ActionListener() {
@@ -37,10 +43,10 @@ public class StartGame extends JFrame implements WindowManager {
             }
         });
 
-        setSize(400,400);
+
         setLayout(new GridLayout(3, 1));
 
-        JLabel headerLabel = new JLabel("Choose game settings",JLabel.CENTER);
+        headerLabel = new JLabel("Choose game settings",JLabel.CENTER);
         headerLabel.setSize(350,100);
 
         addWindowListener(new WindowAdapter() {
@@ -50,11 +56,12 @@ public class StartGame extends JFrame implements WindowManager {
         });
 
         setBackground(Color.darkGray);
-        GroupLayout layout = new GroupLayout(getContentPane());
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
+        JPanel panel = new JPanel( );
+        //GroupLayout layout = new GroupLayout(getContentPane());
+        //layout.setAutoCreateGaps(true);
+        //layout.setAutoCreateContainerGaps(true);
 
-        layout.setHorizontalGroup(layout.createSequentialGroup()
+        /*layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addComponent(headerLabel)
                 .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(
@@ -68,12 +75,16 @@ public class StartGame extends JFrame implements WindowManager {
                 .addComponent(selectHeroBut));
 
         setLayout(layout);
+
+        */
+
+        add(headerLabel);
+        panel.add(createNewHeroBut);
+        panel.add(selectHeroBut);
+        add(panel);
         pack();
 
-
     }
-
-
 
     public void showSelectedHero() {
         SelectHero selectHero = new SelectHero(this);
@@ -97,4 +108,5 @@ public class StartGame extends JFrame implements WindowManager {
     public void start() {
         setVisible(true);
     }
+
 }
