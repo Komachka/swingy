@@ -1,18 +1,13 @@
 package model.characthers;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import model.artifacts.Armor;
 import model.artifacts.Helm;
 import model.artifacts.Weapon;
+
 import javax.validation.constraints.NotNull;
 
 
 
-
-@Getter
-@Setter
 public abstract class Hero extends Character {
 
     //Hero name
@@ -22,10 +17,9 @@ public abstract class Hero extends Character {
     //Attack
     //Defense
     //Hit point
+//TODO add loombok anotations
 
-
-
-    @NotNull
+@NotNull
     private String name;
     @NotNull
     private Weapon weapon; // increases the attack
@@ -46,7 +40,32 @@ public abstract class Hero extends Character {
         this.experience = experience;
     }
 
-    public String getName() {
-        return name;
+
+    public @NotNull Weapon getWeapon() {
+        return this.weapon;
+    }
+
+    public @NotNull Armor getArmor() {
+        return this.armor;
+    }
+
+    public @NotNull Helm getHelm() {
+        return this.helm;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
+    public int getExperience() {
+        return this.experience;
+    }
+
+    public @NotNull String getName() {
+        return this.name;
+    }
+
+    public void setName(@NotNull String name) {
+        this.name = name;
     }
 }

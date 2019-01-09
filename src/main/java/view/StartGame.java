@@ -16,15 +16,15 @@ public class StartGame extends JFrame implements WindowManager {
     private JButton selectHeroBut;
     private JButton createNewHeroBut;
     private JLabel headerLabel;
+    private StartGame instance;
 
 
     public StartGame() {
-        super("Swingy");
-        setSize(450,400);
-        initComponents();
+        super("Swinngy");
+        setup();
+
 
     }
-
 
     private void initComponents()
     {
@@ -59,27 +59,6 @@ public class StartGame extends JFrame implements WindowManager {
 
         setBackground(Color.darkGray);
         JPanel panel = new JPanel( );
-        //GroupLayout layout = new GroupLayout(getContentPane());
-        //layout.setAutoCreateGaps(true);
-        //layout.setAutoCreateContainerGaps(true);
-
-        /*layout.setHorizontalGroup(layout.createSequentialGroup()
-                .addComponent(headerLabel)
-                .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(
-                                GroupLayout.Alignment.LEADING)
-                                .addComponent(createNewHeroBut)
-                                .addComponent(selectHeroBut))));
-
-        layout.setVerticalGroup(layout.createSequentialGroup()
-                .addComponent(headerLabel)
-                .addComponent(createNewHeroBut)
-                .addComponent(selectHeroBut));
-
-        setLayout(layout);
-
-        */
-
         add(headerLabel);
         panel.add(createNewHeroBut);
         panel.add(selectHeroBut);
@@ -92,40 +71,6 @@ public class StartGame extends JFrame implements WindowManager {
 
     public void showSelectedHero() {
         SelectHero selectHero = new SelectHero(this);
-        ArrayList<String> heroes = new ArrayList<String>();
-        String [] test = new String[]{"1", "2", "3", "4", "5"};
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-
-
-        //showDialog(null, null, "Lable", "Title", heroes.toArray(new String[heroes.size()]), heroes.get(0), null);
-
         setContentPane(selectHero); // we can do it because selectHero extands jframe
         pack();
 
@@ -145,8 +90,28 @@ public class StartGame extends JFrame implements WindowManager {
         pack();
     }
 
+    @Override
+    public void restartGame() {
+
+        stop();
+        setup();
+        start();
+    }
+
+
     public void start() {
         setVisible(true);
+    }
+
+    private void stop()
+    {
+        getContentPane().removeAll();
+        repaint();
+    }
+    private void setup()
+    {
+        setSize(450,400);
+        initComponents();
     }
 
 }

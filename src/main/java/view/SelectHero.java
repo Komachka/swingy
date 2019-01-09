@@ -1,69 +1,33 @@
 package view;
 
-import model.characthers.Hero;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+
 import storage.HerroStorage;
 
 public class SelectHero extends JPanel implements ActionListener {
     private static SelectHero dialog;
     private static final String ACTION_SET = "Set";
+    private static final String ACTION_CANCEL = "Cancel";
     private WindowManager windowManager;
     private JList availableHeroes;
     private HerroStorage storage;
-   // private List<Hero> heroes;
-    //private List<String> heroes;
-    String initialValue;
+    private String initialValue;
     private static String value = "";
+    //area for heroes info
+    JTextArea area;
 
 
 
     public SelectHero(WindowManager windowManager)  {
         this.windowManager = windowManager;
         storage = new HerroStorage();
-        //heroes = storage.getAllHeroes();
         setSize(450,400);
         setLayout(new BorderLayout());
-
-       /* heroes = new ArrayList<String>();
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");
-        heroes.add("Bob");
-        heroes.add("Bill");*/
-
-
-
         initComponents();
         dialog = this;
         dialog.setVisible(true);
@@ -76,16 +40,13 @@ public class SelectHero extends JPanel implements ActionListener {
         //cancel but
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(this);
+        cancelButton.setActionCommand(ACTION_CANCEL);
 
         //set but
         final JButton setButton = new JButton("Set");
         setButton.setActionCommand(ACTION_SET);
         setButton.addActionListener(this);
         add(setButton);
-
-
-
-
 
         availableHeroes = new JList(storage.getAllHeroeNames().toArray())
         {
@@ -111,9 +72,7 @@ public class SelectHero extends JPanel implements ActionListener {
                 }
                 return super.getScrollableUnitIncrement(visibleRect, orientation, direction);
             }
-        }
-
-        ;
+        };
         availableHeroes.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         availableHeroes.setLayoutOrientation(JList.VERTICAL);
         availableHeroes.setVisibleRowCount(-1);
@@ -124,7 +83,21 @@ public class SelectHero extends JPanel implements ActionListener {
                 //super.mouseClicked(e);
                 if (e.getClickCount() == 2)
                 {
-                    setButton.doClick(); // emulate button click
+                    System.out.println("choose");
+
+                    System.out.println("Selected value " + availableHeroes.getSelectedValue().toString());
+                    System.out.println("Selected index " + availableHeroes.getSelectedIndex());
+
+                    int index = availableHeroes.getSelectedIndex();
+                    StringBuilder heroInfo = new StringBuilder("Hero Name\n");
+                    heroInfo.append(storage.getHero(index).getName()).append("\n");
+
+                    //TODO method getArmor
+                    heroInfo.append("Herro armor ").append(storage.getHero(index).getArmor().toString()).append("\n");
+                    area.setText(heroInfo.toString());
+
+                    //it in on if we want to emulate click on set button
+                    //setButton.doClick(); // emulate button click
                 }
             }
         });
@@ -153,9 +126,11 @@ public class SelectHero extends JPanel implements ActionListener {
         JPanel statusPane = new JPanel();
         statusPane.setLayout(new BoxLayout(statusPane, BoxLayout.PAGE_AXIS));
         JLabel label2 = new JLabel("Hero status");
-        JTextArea area = new JTextArea(30, 30);
+
+        area = new JTextArea(30, 30);
         area.setText("Hello world");
         label2.setLabelFor(area);
+
         statusPane.add(Box.createRigidArea(new Dimension(50,5)));
         statusPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         statusPane.add(label2);
@@ -189,18 +164,35 @@ public class SelectHero extends JPanel implements ActionListener {
     }
 
 
-
+    // this method in started when mouseClicked and  e.getClickCount() == 2
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("e.getActionCommand() " + e.getActionCommand());
         if (ACTION_SET.equals(e.getActionCommand()))
         {
-            System.out.println(availableHeroes.getSelectedValue().toString());
-            //windowManager.showSelectedMission(heroes.get(availableHeroes.getSelectedIndex()));
+            /*
+            System.out.println("Selected value " + availableHeroes.getSelectedValue().toString());
+            System.out.println("Selected index " + availableHeroes.getSelectedIndex());
+
+            int index = availableHeroes.getSelectedIndex();
+            StringBuilder heroInfo = new StringBuilder("Hero Name\n");
+            heroInfo.append(storage.getHero(index).getName()).append("\n");
+
+            //TODO method getArmor
+            heroInfo.append("Herro armor ").append(storage.getHero(index).getArmor().toString()).append("\n");
+            area.setText(heroInfo.toString());
+            */
+            //start mission with spesefic hero
             windowManager.showSelectedMission(storage.getHero(availableHeroes.getSelectedIndex()));
 
 
         }
-        //dialog.setVisible(false);
+
+        if (ACTION_CANCEL.equals(e.getActionCommand()))
+        {
+            windowManager.restartGame();
+        }
+
 
 
     }
