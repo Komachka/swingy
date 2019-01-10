@@ -19,8 +19,6 @@ public abstract class Hero extends Character {
     //Hit point
 //TODO add loombok anotations
 
-@NotNull
-    private String name;
     @NotNull
     private Weapon weapon; // increases the attack
     @NotNull
@@ -32,7 +30,7 @@ public abstract class Hero extends Character {
 
 
     public Hero(@NotNull String name,@NotNull String weapon, @NotNull String armor, @NotNull String helm, int level, int experience) {
-        this.name = name;
+        super(name);
         this.weapon = new Weapon(weapon);
         this.armor = new Armor(armor);
         this.helm = new Helm(helm);
@@ -61,11 +59,5 @@ public abstract class Hero extends Character {
         return this.experience;
     }
 
-    public @NotNull String getName() {
-        return this.name;
-    }
 
-    public void setName(@NotNull String name) {
-        this.name = name;
-    }
 }
