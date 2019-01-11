@@ -1,4 +1,4 @@
-import view.StartGame;
+import model.characthers.HeroClass;
 
 public class Main {
 
@@ -29,7 +29,16 @@ public class Main {
         }
         game =  builder.buildGame(factory, mode);*/
 
-        StartGame app = new StartGame();
-        app.start();
+
+        HeroClass heroClass = HeroClass.ELF;
+        System.out.println("Elf attack " + heroClass.getAttack());
+
+        for (HeroClass p : HeroClass.values())
+        {
+            System.out.println("defence for " + p + " "+ p.getDefense());
+        }
+
+        //StartGame app = new StartGame();
+        //app.start();
     }
 }

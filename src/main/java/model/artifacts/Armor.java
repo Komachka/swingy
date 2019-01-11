@@ -1,10 +1,22 @@
 package model.artifacts;
 
-public class Armor {
+ //increase the defense
 
-    private String type;
+public enum Armor {
 
-    public Armor(String type) {
-        this.type = type;
+    BROTHERHOOD_OF_STEEL(100),
+    SCORPION_SUIT(90),
+    ARS_SUIT(80),
+    NANOSUIT(70),
+    TANOOKI_SUIT(1000);
+
+    private int increaseTheDefense;
+
+    Armor(int increaseTheDefense) {
+        this.increaseTheDefense = increaseTheDefense;
+    }
+
+    public int getIncreaseTheDefense() {
+        return increaseTheDefense;
     }
 }

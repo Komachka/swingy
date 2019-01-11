@@ -1,3 +1,4 @@
+/*
 package util;
 
 import model.characthers.Elf;
@@ -20,3 +21,4 @@ public class CharacterFactory {
     }
 
 }
+*/

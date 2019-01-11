@@ -1,10 +1,20 @@
 package model.artifacts;
 
-public class Weapon {
+public enum Weapon {
 
-    private String type;
+    SWORD(50),
+    BOW(40),
+    PUGIO(30),
+    FLAX(20);
 
-    public Weapon(String type) {
-        this.type = type;
+
+    private int increasesTheAttack;
+
+     Weapon(int increasesTheAttack) {
+        this.increasesTheAttack = increasesTheAttack;
+     }
+
+    public int getIncreasesTheAttack() {
+        return increasesTheAttack;
     }
 }

@@ -2,7 +2,8 @@ package storage;
 
 import model.characthers.Hero;
 
-import util.CharacterFactory;
+import model.characthers.HeroClass;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,7 +26,7 @@ public class HerroStorage {
         try {
             reader = new BufferedReader(new FileReader(FILE_NAME));
             String line;
-            CharacterFactory factory  = new CharacterFactory();
+            //CharacterFactory factory  = new CharacterFactory();
             while ((line = reader.readLine()) != null)
             {
                 String[] params = line.split(",");
@@ -33,7 +34,9 @@ public class HerroStorage {
                     System.out.println(par);
 
                 }
-                Hero hero = factory.newHero(params[0], params[1], Integer.parseInt(params[2].trim()), Integer.parseInt(params[3].trim()), params[4], params[5]);
+
+                Hero hero = new Hero.HeroBuilder(HeroClass.BLACK_MAGE, "Riobard").build();
+                //Hero hero = factory.newHero(params[0], params[1], Integer.parseInt(params[2].trim()), Integer.parseInt(params[3].trim()), params[4], params[5]);
                 heroes.add(hero);
             }
         }
