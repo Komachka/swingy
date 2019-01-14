@@ -8,6 +8,7 @@ import model.characthers.HeroClass;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +24,12 @@ public class HerroStorage {
     private List<Hero> parseTextFile() {
         heroes = new ArrayList<>();
         BufferedReader reader = null;
+        DBManager dbManager = new DBManager();
+        Connection dbConnection = null;
         try {
+            dbConnection = dbManager.getDBConnection();
+
+
             reader = new BufferedReader(new FileReader(FILE_NAME));
             String line;
             //CharacterFactory factory  = new CharacterFactory();
