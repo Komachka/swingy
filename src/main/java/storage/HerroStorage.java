@@ -8,7 +8,6 @@ import model.characthers.HeroClass;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,9 +24,9 @@ public class HerroStorage {
         heroes = new ArrayList<>();
         BufferedReader reader = null;
         DBManager dbManager = new DBManager();
-        Connection dbConnection = null;
+
         try {
-            dbConnection = dbManager.getDBConnection();
+
 
 
             reader = new BufferedReader(new FileReader(FILE_NAME));
@@ -42,7 +41,6 @@ public class HerroStorage {
                 }
 
                 Hero hero = new Hero.HeroBuilder(HeroClass.BLACK_MAGE, "Riobard").build();
-                //Hero hero = factory.newHero(params[0], params[1], Integer.parseInt(params[2].trim()), Integer.parseInt(params[3].trim()), params[4], params[5]);
                 heroes.add(hero);
             }
         }
