@@ -17,13 +17,26 @@ public class HerroStorage {
     private final static String FILE_NAME = "heroes.txt";
 
     public HerroStorage() {
-        this.heroes = parseTextFile();
+
+        DBManager dbManager = new DBManager();
+        //this.heroes = parseTextFile();
     }
+
+
+    private List<Hero> getHeroesFromDb()
+    {
+
+
+
+        return heroes;
+    }
+
+
+
 
     private List<Hero> parseTextFile() {
         heroes = new ArrayList<>();
         BufferedReader reader = null;
-        DBManager dbManager = new DBManager();
 
         try {
 
