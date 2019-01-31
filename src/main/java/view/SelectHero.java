@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import storage.HerroStorage;
 
 public class SelectHero extends JPanel implements ActionListener {
-    private static SelectHero dialog;
+    //private static SelectHero selectHero;
     private static final String ACTION_SET = "Set";
     private static final String ACTION_CANCEL = "Cancel";
     private WindowManager windowManager;
@@ -24,13 +24,14 @@ public class SelectHero extends JPanel implements ActionListener {
 
 
     public SelectHero(WindowManager windowManager)  {
+        System.out.println("Select hero constructor");
         this.windowManager = windowManager;
         storage = new HerroStorage();
         setSize(450,400);
         setLayout(new BorderLayout());
         initComponents();
-        dialog = this;
-        dialog.setVisible(true);
+        //selectHero = this;
+        setVisible(true);
 
     }
 

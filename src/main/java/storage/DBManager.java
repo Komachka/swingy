@@ -27,13 +27,6 @@ public class DBManager {
 
     private  void createHeroesTable() {
 
-       /* // SQL statement for creating a new table
-        String CREATE_WEAPON_TABLE = "CREATE TABLE IF NOT EXISTS weapon (\n"
-                + "	id integer PRIMARY KEY,\n"
-                + "	name text NOT NULL,\n"
-                + "	attack real NOT NULL\n"
-                + ");";*/
-
         try (Connection connection = DBConnection.getDBConnection();
              Statement stmt = connection.createStatement()) {
             // create a new table
@@ -66,7 +59,7 @@ public class DBManager {
     }
 
 
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         DBManager dbManager = new DBManager();
         dbManager.creteNewDataBase();
         dbManager.createHeroesTable();
@@ -75,10 +68,10 @@ public class DBManager {
         //BOW(40),
         //PUGIO(30),
         //FLAX(20);
-      /*  dbManager.insert("SWORD", 500);
+      *//*  dbManager.insert("SWORD", 500);
         dbManager.insert("BOW", 400);
         dbManager.insert("PUGIO", 300);
-        dbManager.insert("FLAX", 200);*/
-    }
+        dbManager.insert("FLAX", 200);*//*
+    }*/
 
 }

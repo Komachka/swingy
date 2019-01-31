@@ -21,13 +21,16 @@ public class StartGame extends JFrame implements WindowManager {
 
     public StartGame() {
         super("Swinngy");
+        System.out.println("Start game constructor");
         setup();
+        start();
 
 
     }
 
     private void initComponents()
     {
+        System.out.println("Init components");
         selectHeroBut = new JButton();
         createNewHeroBut = new JButton();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -100,16 +103,19 @@ public class StartGame extends JFrame implements WindowManager {
 
 
     public void start() {
+        System.out.println("Start");
         setVisible(true);
     }
 
     private void stop()
     {
+        System.out.println("Stop");
         getContentPane().removeAll();
         repaint();
     }
     private void setup()
     {
+        System.out.println("Set up");
         setSize(450,400);
         initComponents();
     }

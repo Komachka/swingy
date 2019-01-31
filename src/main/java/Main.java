@@ -1,4 +1,5 @@
 import model.characthers.HeroClass;
+import view.StartGame;
 
 public class Main {
 
@@ -38,7 +39,7 @@ public class Main {
             System.out.println("defence for " + p + " "+ p.getDefense());
         }
 
-        //StartGame app = new StartGame();
+        StartGame app = new StartGame();
         //app.start();
     }
 }
