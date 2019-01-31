@@ -87,7 +87,7 @@ public class Hero {
             return this;
         }
 
-        public HeroBuilder setHelm(Helm helm) {
+        public HeroBuilder addHelm(Helm helm) {
             this.helm = helm;
             return this;
         }

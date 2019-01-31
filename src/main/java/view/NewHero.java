@@ -1,23 +1,32 @@
 package view;
 
-import controller.CharactesController;
+import controller.CharactersController;
 import model.artifacts.Armor;
 import model.artifacts.Helm;
 import model.artifacts.Weapon;
+import model.characthers.Hero;
 import model.characthers.HeroClass;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.ErrorManager;
 
 public class NewHero extends JPanel implements ActionListener {
     private static final String ACTION_SAVE = "Save";
     private static final String ACTION_CANCEL = "Cancel";
-    private CharactesController charactesController = new CharactesController();
+    private CharactersController charactesController = new CharactersController();
     private WindowManager windowManager;
-    //private static NewHero newHero;
+
+
+
+
+    private JTextField textUsername;
+    private JComboBox<String> heroClasses;
+    private JComboBox<String> weapons;
+    private JComboBox<String> armors;
+    private JComboBox<String> helms;
+
 
     public NewHero(WindowManager windowManager) {
         System.out.println("New hero constructor");
@@ -37,11 +46,13 @@ public class NewHero extends JPanel implements ActionListener {
 
 
         JLabel labelUsername = new JLabel("Enter name:  ");
-        JLabel labelRase = new JLabel("Choose the race:  ");
+        JLabel labelRace = new JLabel("Choose the race:  ");
         JLabel labelWeapon = new JLabel("Choose the weapon:  ");
         JLabel labelArmor = new JLabel("Choose the armor:  ");
         JLabel labelHelm = new JLabel("Choose the helm:  ");
-        JTextField textUsername = new JTextField(20);
+
+
+        textUsername = new JTextField(20);
 
 
 
@@ -63,10 +74,10 @@ public class NewHero extends JPanel implements ActionListener {
 
         constraints.gridx = 0;
         constraints.gridy = 1;
-        add(labelRase, constraints);
+        add(labelRace, constraints);
 
 
-        JComboBox<String> heroClasses = new JComboBox(HeroClass.values());
+        heroClasses = new JComboBox(HeroClass.values());
         constraints.gridx = 1;
         constraints.gridwidth = 2;
         add(heroClasses, constraints);
@@ -76,7 +87,7 @@ public class NewHero extends JPanel implements ActionListener {
         add(labelWeapon, constraints);
 
 
-        JComboBox<String> weapons = new JComboBox(Weapon.values());
+        weapons = new JComboBox(Weapon.values());
         constraints.gridx = 1;
         constraints.gridwidth = 2;
         add(weapons, constraints);
@@ -88,7 +99,7 @@ public class NewHero extends JPanel implements ActionListener {
 
 
 
-        JComboBox<String> armors = new JComboBox(Armor.values());
+        armors = new JComboBox(Armor.values());
         constraints.gridx = 1;
         constraints.gridwidth = 2;
         add(armors, constraints);
@@ -99,7 +110,7 @@ public class NewHero extends JPanel implements ActionListener {
         add(labelHelm, constraints);
 
 
-        JComboBox<String> helms = new JComboBox(Helm.values());
+        helms = new JComboBox(Helm.values());
         constraints.gridx = 1;
         constraints.gridwidth = 2;
         add(helms, constraints);
@@ -150,9 +161,18 @@ public class NewHero extends JPanel implements ActionListener {
             */
             //start mission with spesefic hero
 
-            //createHero();
-            //saveHerroToDatabase();
-            //windowManager.showSelectedMission(storage.getHero(availableHeroes.getSelectedIndex()));
+            String name = textUsername.getText();
+            HeroClass hClass = HeroClass.values()[heroClasses.getSelectedIndex()];
+            Weapon weapon = Weapon.values()[weapons.getSelectedIndex()];
+            Armor armor = Armor.values()[armors.getSelectedIndex()];
+            Helm helm = Helm.values()[helms.getSelectedIndex()];
+            Hero newHero = new Hero.HeroBuilder(hClass,name)
+                    .addWeapon(weapon)
+                    .addArmor(armor)
+                    .addHelm(helm)
+                    .build();
+            charactesController.saveHeroToDatabase(newHero);
+            windowManager.showSelectedMission(newHero);
 
 
         }
