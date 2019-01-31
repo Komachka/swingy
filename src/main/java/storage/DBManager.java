@@ -8,9 +8,11 @@ public class DBManager {
 
 
     public DBManager() {
+        creteNewDataBase();
+        createHeroesTable();
     }
 
-    public  void creteNewDataBase() {
+    private   void creteNewDataBase() {
 
         try(Connection connection = DBConnection.getDBConnection()) {
             DatabaseMetaData meta = connection.getMetaData();
@@ -23,19 +25,20 @@ public class DBManager {
         }
     }
 
-    public  void createWeaponTable() {
+    private  void createHeroesTable() {
 
-        // SQL statement for creating a new table
+       /* // SQL statement for creating a new table
         String CREATE_WEAPON_TABLE = "CREATE TABLE IF NOT EXISTS weapon (\n"
                 + "	id integer PRIMARY KEY,\n"
                 + "	name text NOT NULL,\n"
                 + "	attack real NOT NULL\n"
-                + ");";
+                + ");";*/
 
         try (Connection connection = DBConnection.getDBConnection();
              Statement stmt = connection.createStatement()) {
             // create a new table
-            stmt.execute(CREATE_WEAPON_TABLE);
+            System.out.println(HeroDataBaseContract.SQL_CREATE_TABLE);
+            stmt.execute(HeroDataBaseContract.SQL_CREATE_TABLE);
             System.out.println("Table has been created");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -43,10 +46,10 @@ public class DBManager {
     }
 
     public  void insert(String name, int attack) {
-        String sql = "INSERT INTO weapon (name, attack) VALUES(?,?)";
+        /*String sql = "INSERT INTO weapon (name, attack) VALUES(?,?)";*/
 
         try (Connection connection = DBConnection.getDBConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+             PreparedStatement pstmt = connection.prepareStatement(HeroDataBaseContract.INSERT_INTO)) {
             pstmt.setString(1, name);
             pstmt.setDouble(2, attack);
             pstmt.executeUpdate();
@@ -57,19 +60,25 @@ public class DBManager {
     }
 
 
+    public void selectAll()
+    {
+
+    }
+
+
     public static void main(String[] args) {
         DBManager dbManager = new DBManager();
         dbManager.creteNewDataBase();
-        dbManager.createWeaponTable();
+        dbManager.createHeroesTable();
 
         //SWORD(50),
         //BOW(40),
         //PUGIO(30),
         //FLAX(20);
-        dbManager.insert("SWORD", 500);
+      /*  dbManager.insert("SWORD", 500);
         dbManager.insert("BOW", 400);
         dbManager.insert("PUGIO", 300);
-        dbManager.insert("FLAX", 200);
+        dbManager.insert("FLAX", 200);*/
     }
 
 }
