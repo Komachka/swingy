@@ -21,8 +21,15 @@ public class DBManager {
         }
         catch (SQLException e)
         {
-            System.err.println();
+            System.err.println("creteNewDataBase");
+            System.err.println(e.getMessage());
         }
+        catch (NullPointerException ex)
+        {
+            System.err.println("creteNewDataBase");
+            System.err.println(ex.getMessage());
+        }
+
     }
 
     private  void createHeroesTable() {

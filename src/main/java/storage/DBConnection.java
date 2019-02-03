@@ -19,8 +19,11 @@ public class DBConnection {
         catch (SQLException e)
         {
             System.err.println(e.getMessage());
+            System.err.println("SQLException Connection to database has not been established.");
+
         } catch (ClassNotFoundException e) {
             System.err.println(e.getMessage());
+            System.err.println("ClassNotFoundException Connection to database has not been established.");
         }
         return connection;
 

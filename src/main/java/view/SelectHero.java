@@ -29,7 +29,7 @@ public class SelectHero extends JPanel implements ActionListener {
         storage = new HerroStorage();
         setSize(450,400);
         setLayout(new BorderLayout());
-        initComponents();
+        //initComponents();
         //selectHero = this;
         setVisible(true);
 

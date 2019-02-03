@@ -147,20 +147,6 @@ public class NewHero extends JPanel implements ActionListener {
         System.out.println("e.getActionCommand() " + e.getActionCommand());
         if (ACTION_SAVE.equals(e.getActionCommand()))
         {
-            /*
-            System.out.println("Selected value " + availableHeroes.getSelectedValue().toString());
-            System.out.println("Selected index " + availableHeroes.getSelectedIndex());
-
-            int index = availableHeroes.getSelectedIndex();
-            StringBuilder heroInfo = new StringBuilder("Hero Name\n");
-            heroInfo.append(storage.getHero(index).getName()).append("\n");
-
-            //TODO method getArmor
-            heroInfo.append("Herro armor ").append(storage.getHero(index).getArmor().toString()).append("\n");
-            area.setText(heroInfo.toString());
-            */
-            //start mission with spesefic hero
-
             String name = textUsername.getText();
             HeroClass hClass = HeroClass.values()[heroClasses.getSelectedIndex()];
             Weapon weapon = Weapon.values()[weapons.getSelectedIndex()];
