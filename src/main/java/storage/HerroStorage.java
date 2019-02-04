@@ -19,15 +19,13 @@ public class HerroStorage {
     public HerroStorage() {
 
         DBManager dbManager = new DBManager();
+        this.heroes = dbManager.selectAll();
         //this.heroes = parseTextFile();
     }
 
 
     private List<Hero> getHeroesFromDb()
     {
-
-
-
         return heroes;
     }
 
@@ -39,8 +37,6 @@ public class HerroStorage {
         BufferedReader reader = null;
 
         try {
-
-
 
             reader = new BufferedReader(new FileReader(FILE_NAME));
             String line;

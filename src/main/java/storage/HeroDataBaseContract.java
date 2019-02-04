@@ -10,6 +10,10 @@ public interface HeroDataBaseContract {
     public static final String COLUMN_ATTACK = "attack";
     public static final String COLUMN_DEFENSE = "defense";
     public static final String COLUMN_HP = "hitPoints";
+    public static final String COLUMN_WEAPON = "weapon";
+    public static final String COLUMN_HELM = "helm";
+    public static final String COLUMN_ARMOR = "armor";
+
 
 
     public static final String SQL_CREATE_TABLE =
@@ -21,6 +25,9 @@ public interface HeroDataBaseContract {
                     COLUMN_EXPERIENCE + " TEXT NOT NULL, " +
                     COLUMN_ATTACK + " TEXT NOT NULL, " +
                     COLUMN_DEFENSE + " TEXT NOT NULL, " +
+                    COLUMN_WEAPON + " TEXT NOT NULL, " +
+                    COLUMN_HELM + " TEXT NOT NULL, " +
+                    COLUMN_ARMOR + " TEXT NOT NULL, " +
                     COLUMN_HP + " TEXT NOT NULL);";
 
     public static final String SQL_DELETE_ENTRIES =
@@ -33,14 +40,17 @@ public interface HeroDataBaseContract {
 
     public static final String INSERT_INTO =
             "INSERT INTO "+TABLE_NAME+" ("+
-                    COLUMN_NAME +", "+
-                    COLUMN_HEROCLASS +", "+
-                    COLUMN_LEVEL +", "+
-                    COLUMN_EXPERIENCE +", "+
-                    COLUMN_ATTACK +", "+
-                    COLUMN_DEFENSE +", "+
-                    COLUMN_HP +") " +
-                    "VALUES(?,?,?,?,?,?,?);";
+                    COLUMN_NAME +", "+          //1
+                    COLUMN_HEROCLASS +", "+     //2
+                    COLUMN_LEVEL +", "+         //3
+                    COLUMN_EXPERIENCE +", "+    //4
+                    COLUMN_ATTACK +", "+        //5
+                    COLUMN_DEFENSE +", "+       //6
+                    COLUMN_WEAPON +", "+        //7
+                    COLUMN_HELM +", "+          //8
+                    COLUMN_ARMOR +", "+         //9
+                    COLUMN_HP +") " +           //10
+                    "VALUES(?,?,?,?,?,?,?,?,?,?);";
 
 
 }

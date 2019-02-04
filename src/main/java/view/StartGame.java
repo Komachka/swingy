@@ -16,7 +16,7 @@ public class StartGame extends JFrame implements WindowManager {
     private JButton selectHeroBut;
     private JButton createNewHeroBut;
     private JLabel headerLabel;
-    private StartGame instance;
+    //private StartGame instance;
 
 
     public StartGame() {

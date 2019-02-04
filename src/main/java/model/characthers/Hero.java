@@ -31,11 +31,18 @@ public class Hero {
     @NotNull String name;
     @NotNull
     private HeroClass heroClass;
+    @NotNull
     private int level;
+    @NotNull
     private int experience;
+    @NotNull
     private int attack;
+    @NotNull
     private int defense;
+    @NotNull
     private int hitPoints;
+
+
 
     @NotNull
     private Weapon weapon; // increases the attack
@@ -52,6 +59,11 @@ public class Hero {
         this.weapon = builder.weapon;
         this.armor = builder.armor;
         this.helm = builder.helm;
+        this.level = builder.level;
+        this.experience = builder.experience;
+        this.attack = builder.attack;
+        this.defense = builder.defense;
+        this.hitPoints = builder.hitPoints;
 
     }
 
@@ -68,6 +80,18 @@ public class Hero {
         private Armor armor; // increase the defense
         @NotNull
         private Helm helm; // increases hit points
+
+
+        @NotNull
+        private int level;
+        @NotNull
+        private int experience;
+        @NotNull
+        private int attack;
+        @NotNull
+        private int defense;
+        @NotNull
+        private int hitPoints;
 
 
         public HeroBuilder(HeroClass heroClass, String name)
@@ -91,6 +115,34 @@ public class Hero {
             this.helm = helm;
             return this;
         }
+
+        public HeroBuilder addLevel(int level) {
+            this.level = level;
+            return this;
+        }
+
+        public HeroBuilder addExperience(int experience) {
+            this.experience = experience;
+            return this;
+        }
+
+        public HeroBuilder addHitPoints(int hitPoints) {
+            this.hitPoints = hitPoints;
+            return this;
+        }
+        public HeroBuilder addAttack(int attack) {
+            this.attack = attack;
+            return this;
+        }
+        public HeroBuilder addDefense(int defense) {
+            this.defense = defense;
+            return this;
+        }
+
+
+
+
+
 
         public Hero build()
         {
@@ -128,5 +180,17 @@ public class Hero {
 
     public String getName() {
         return name;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getHitPoints() {
+        return hitPoints;
     }
 }
