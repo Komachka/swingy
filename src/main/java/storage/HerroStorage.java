@@ -19,7 +19,7 @@ public class HerroStorage {
     public HerroStorage() {
 
         DBManager dbManager = new DBManager();
-        this.heroes = dbManager.selectAll();
+        this.heroes = dbManager.getAllHeroes();
         //this.heroes = parseTextFile();
     }
 

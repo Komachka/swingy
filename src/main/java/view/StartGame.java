@@ -88,7 +88,7 @@ public class StartGame extends JFrame implements WindowManager {
 
     @Override
     public void showSelectedMission(Hero hero) {
-        PlayMission mission = new PlayMission(this, hero);
+        PlayMission mission = new PlayMission(hero);
         setContentPane(mission);
         pack();
     }

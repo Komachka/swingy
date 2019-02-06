@@ -1,6 +1,6 @@
 public class GameBuilder {
 
-    public Game buildGame(GameObjFactory factory, Main.GameModes mode)
+/*    public Game buildGame(GameObjFactory factory, Main.GameModes mode)
     {
 
         Game game= new Game();
@@ -12,5 +12,5 @@ public class GameBuilder {
         game.setMenu(menu);
         game.setMode(mode);
         return new Game();
-    }
+    }*/
 }

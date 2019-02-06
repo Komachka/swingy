@@ -19,4 +19,8 @@ VEIL_OF_STEEL(100),
     Helm(int increaseHitPoints) {
         this.increaseHitPoints = increaseHitPoints;
     }
+
+    public int getIncreaseHitPoints() {
+        return increaseHitPoints;
+    }
 }

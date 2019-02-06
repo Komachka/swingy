@@ -5,13 +5,12 @@ import model.artifacts.Helm;
 import model.artifacts.Weapon;
 import model.characthers.Hero;
 import model.characthers.HeroClass;
-
 import java.sql.*;
 import java.util.ArrayList;
 
-//
 
-public class DBManager {
+
+public class DBManager implements HeroDao {
 
 
     public DBManager() {
@@ -43,7 +42,6 @@ public class DBManager {
 
         try (Connection connection = DBConnection.getDBConnection();
              Statement stmt = connection.createStatement()) {
-            // create a new table
             System.out.println(HeroDataBaseContract.SQL_CREATE_TABLE);
             stmt.execute(HeroDataBaseContract.SQL_CREATE_TABLE);
             System.out.println("Table has been created");
@@ -52,20 +50,13 @@ public class DBManager {
         }
     }
 
-    public  void insert(String name, int attack) {
-        /*String sql = "INSERT INTO weapon (name, attack) VALUES(?,?)";*/
 
-        try (Connection connection = DBConnection.getDBConnection();
-             PreparedStatement pstmt = connection.prepareStatement(HeroDataBaseContract.INSERT_INTO)) {
-            pstmt.setString(1, name);
-            pstmt.setDouble(2, attack);
-            pstmt.executeUpdate();
-            System.out.println("Data has been inserted");
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
+    @Override
+    public Hero getHeroById(long id) {
+        return null;
     }
 
+    @Override
     public  void insertHero(Hero hero) {
         try (Connection connection = DBConnection.getDBConnection();
              PreparedStatement pstmt = connection.prepareStatement(HeroDataBaseContract.INSERT_INTO)) {
@@ -86,8 +77,18 @@ public class DBManager {
         }
     }
 
+    @Override
+    public void updateHero(Hero hero) {
 
-    public ArrayList<Hero> selectAll()
+    }
+
+    @Override
+    public void deleteHero(Hero hero) {
+
+    }
+
+
+    public ArrayList<Hero> getAllHeroes()
     {
         ArrayList<Hero> heroes = new ArrayList<>();
         try (Connection connection = DBConnection.getDBConnection();
@@ -122,11 +123,11 @@ public class DBManager {
                     .addWeapon(weapon)
                     .addArmor(armor)
                     .addHelm(helm)
-                    .addLevel(Integer.parseInt(level))
-                    .addExperience(Integer.parseInt(experience))
-                    .addAttack(Integer.parseInt(attack))
-                    .addDefense(Integer.parseInt(defense))
-                    .addHitPoints(Integer.parseInt(hitPoints))
+                    .setLevel(Integer.parseInt(level))
+                    .setExperience(Integer.parseInt(experience))
+                    .setAttack(Integer.parseInt(attack))
+                    .setDefense(Integer.parseInt(defense))
+                    .setHitPoints(Integer.parseInt(hitPoints))
                     .build();
             return hero;
         } catch (SQLException e) {
@@ -137,9 +138,7 @@ public class DBManager {
 
     }
 
-   /* private Hero createHero() {
-        Hero hero = new Hero.HeroBuilder()
-    }*/
+
 
 
 }

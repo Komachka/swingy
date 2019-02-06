@@ -17,16 +17,8 @@ Hero mage = new Hero.Builder(HeroClass.MAGE, "Riobard").withHairColor(HairColor.
  Leveling up is based on the following formula level*1000+(level−1)2*450. So the necessary experience to level up will follow this pattern: • Level 1 - 1000 XP • Level 2 - 2450 XP • Level 3 - 4800 XP • Level 4 - 8050 XP • Level 5 - 12200 XP
  */
 
-public class Hero {
-
-    //Hero name
-    //Hero class
-    //Level
-    //Experience
-    //Attack
-    //Defense
-    //Hit point
-//TODO add loombok anotations
+public class Hero extends Character {
+    //TODO add loombok anotations
 
     @NotNull String name;
     @NotNull
@@ -42,8 +34,6 @@ public class Hero {
     @NotNull
     private int hitPoints;
 
-
-
     @NotNull
     private Weapon weapon; // increases the attack
     @NotNull
@@ -54,6 +44,7 @@ public class Hero {
 
     private Hero(@NotNull HeroBuilder builder) {
 
+        super();
         this.heroClass = builder.heroClass;
         this.name = builder.name;
         this.weapon = builder.weapon;
@@ -66,7 +57,6 @@ public class Hero {
         this.hitPoints = builder.hitPoints;
 
     }
-
 
     public static class HeroBuilder {
 
@@ -100,49 +90,50 @@ public class Hero {
             this.name = name;
         }
 
+        // weapon increases the attack
         public HeroBuilder addWeapon(Weapon weapon)
         {
             this.weapon = weapon;
+            this.attack += weapon.getIncreasesTheAttack();
             return this;
         }
 
+        // armor increase the defense
         public HeroBuilder addArmor(Armor armor) {
             this.armor = armor;
+            this.defense += armor.getIncreaseTheDefense();
             return this;
         }
 
+        //helm increases hit points
         public HeroBuilder addHelm(Helm helm) {
             this.helm = helm;
+            this.hitPoints += helm.getIncreaseHitPoints();
             return this;
         }
 
-        public HeroBuilder addLevel(int level) {
+        public HeroBuilder setLevel(int level) {
             this.level = level;
             return this;
         }
 
-        public HeroBuilder addExperience(int experience) {
+        public HeroBuilder setExperience(int experience) {
             this.experience = experience;
             return this;
         }
 
-        public HeroBuilder addHitPoints(int hitPoints) {
+        public HeroBuilder setHitPoints(int hitPoints) {
             this.hitPoints = hitPoints;
             return this;
         }
-        public HeroBuilder addAttack(int attack) {
+        public HeroBuilder setAttack(int attack) {
             this.attack = attack;
             return this;
         }
-        public HeroBuilder addDefense(int defense) {
+        public HeroBuilder setDefense(int defense) {
             this.defense = defense;
             return this;
         }
-
-
-
-
-
 
         public Hero build()
         {
@@ -150,7 +141,6 @@ public class Hero {
         }
 
     }
-
 
 
     public @NotNull Weapon getWeapon() {
@@ -193,4 +183,8 @@ public class Hero {
     public int getHitPoints() {
         return hitPoints;
     }
+
+
+
+
 }
