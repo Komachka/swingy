@@ -6,17 +6,17 @@ public  class Villain extends Character {
     @NotNull
     private int power;
 
+    public Villain(int x, int y, int power)
+    {
+        super();
+        setX(x);
+        setY(y);
+        this.power = power;
+    }
+
     public Villain() {
         super();
-        generateRandomPower();
     }
-
-
-    //TODO implement method
-    private void generateRandomPower() {
-        power = 5;
-    }
-
 
     public int getPower() {
         return power;

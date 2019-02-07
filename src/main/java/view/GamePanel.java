@@ -1,16 +1,18 @@
 package view;
 
 import model.Game;
+import model.characthers.Villain;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel {
 
     private Shape playerShape;
-    private Shape enemyShape;
+    private Color enemyColour =  Color.GREEN;
     private Game game;
 
     public GamePanel(Game game) {
@@ -31,8 +33,7 @@ public class GamePanel extends JPanel {
         AffineTransform identity = new AffineTransform();
         g2d.setTransform(identity);
 
-        g2d.setColor(Color.RED);
-        g2d.fillOval(game.getEnemyX(), game.getEnemyY(), game.getScale(), game.getScale());
+        paintVillains(g2d);
 
         playerShape = new Rectangle2D.Double(game.getHeroX(), game.getHeroY(), game.getScale(), game.getScale());
         g2d.setColor(Color.GREEN);
@@ -40,6 +41,21 @@ public class GamePanel extends JPanel {
 
 
 
+    }
+
+    public void setEnemyColour()
+    {
+        enemyColour = Color.MAGENTA;
+    }
+
+    private void paintVillains(Graphics2D g2d) {
+        ArrayList<Villain> villains = game.getEnemies();
+        for (Villain v : villains)
+        {
+            System.out.println("v.getY() " + v.getY() + "v.getX() " + v.getX());
+            g2d.setColor(enemyColour);
+            g2d.fillOval(v.getX(), v.getY(), game.getScale(), game.getScale());
+        }
     }
 
 

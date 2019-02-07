@@ -37,30 +37,18 @@ public abstract class Character {
     }
 
     private void moveDown(GameMup map) {
-        if (Y + map.getScale() <= map.getHEIGHT() - map.getScale())
-        {
-            this.Y +=map.getScale();
-        }
+        this.Y +=map.getScale();
     }
 
     private void moveUp(GameMup map) {
-        if (Y - map.getScale() >= 0)
-        {
-            this.Y -=map.getScale();
-        }
+        this.Y -=map.getScale();
     }
 
     private void moveRight(GameMup map) {
-        if (X + map.getScale() <= map.getWIDTH() - map.getScale())
-        {
-            this.X +=map.getScale();
-        }
+        this.X +=map.getScale();
     }
     private void moveLeft(GameMup map) {
-        if (X - map.getScale() >= 0)
-        {
-            this.X -=map.getScale();
-        }
+        this.X -=map.getScale();
     }
 
     public void setX(int x) {
