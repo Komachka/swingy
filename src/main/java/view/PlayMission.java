@@ -9,26 +9,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
 
 // it is like a view!
 
 
 
 public class PlayMission extends JPanel implements ActionListener, MoveObserver{
-    //private Hero hero;
+    public static final int CANVAS_WIDTH = 600;
+    public static final int CANVAS_HEIGHT = 650;
+    public static final int BUTTON_PANEL_WIDTH = 600;
+    public static final int BUTTON_PANEL_HEIGHT = 50;
+
+
     private Game game;
     private Hero hero;
     private GamePlayController controller;
     GamePanel gamePnel;
 
-
-    public static final int CANVAS_WIDTH = 640;
-    public static final int CANVAS_HEIGHT = 480;
-
-
-    JLabel label1 = new JLabel("Hello");
     JButton buttonUp = new JButton("UP");
     JButton buttonRight = new JButton("RIGHT");
     JButton buttonDown = new JButton("DOWN");
@@ -58,8 +55,10 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
     private void createView() {
         setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 
-        setLayout(new BorderLayout());
-        JPanel a = new JPanel(new GridLayout(1,4));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JPanel boxPane = new JPanel();
+        boxPane.setLayout(new BoxLayout(boxPane, BoxLayout.X_AXIS));
+        boxPane.setPreferredSize(new Dimension(BUTTON_PANEL_WIDTH, BUTTON_PANEL_HEIGHT));
         buttonUp.setActionCommand("UP");
         buttonUp.addActionListener(this);
 
@@ -69,13 +68,17 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
         buttonRight.addActionListener(this);
         buttonLeft.setActionCommand("LEFT");
         buttonLeft.addActionListener(this);
-        a.add(buttonUp);
-        a.add(buttonDown);
-        a.add(buttonLeft);
-        a.add(buttonRight);
-        add(a, BorderLayout.PAGE_START);
-        gamePnel.setPreferredSize(new Dimension(game.getMapW()*10, game.getMapH() * 10));
+        boxPane.add(buttonUp);
+        boxPane.add(buttonDown);
+        boxPane.add(buttonLeft);
+        boxPane.add(buttonRight);
+        add(boxPane, BorderLayout.PAGE_START);
+        gamePnel.setPreferredSize(new Dimension(game.getMapW(), game.getMapH()));
+        gamePnel.setMaximumSize(new Dimension(game.getMapW(), game.getMapH()));
         add(gamePnel, BorderLayout.CENTER);
+
+        Dimension d = gamePnel.getSize();
+        System.out.println("d.height " + d.height + "d.weight " + d.width);
 
 
 
@@ -91,25 +94,38 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
         //open window to select the direction
     }
 
-    public void changeMapPosition()
-    {
-        gamePnel.moveShape();
-    }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Click");
-        if (e.getActionCommand().equals("UP") || e.getActionCommand().equals("DOWN") ||
-                e.getActionCommand().equals("LEFT") || e.getActionCommand().equals("RIGHT"))
+        boolean fight = false;
+        int direction = 1;
+        switch (e.getActionCommand())
         {
-            System.out.println("Change position");
-            if (game.playGameRound(GameMup.DOWN))
-                changeMapPosition();
-
+            case "UP":
+                direction = GameMup.UP;
+                break;
+            case "DOWN":
+                direction = GameMup.DOWN;
+                break;
+            case "RIGHT":
+                direction = GameMup.RIGHT;
+                break;
+            case "LEFT":
+                direction = GameMup.LEFT;
+                break;
+        }
+        if (game.playGameRoundAndCloseToenemy(direction))
+            fight = true;
+        gamePnel.repaint();
+        if (fight)
+            showFightWindow();
         }
 
+    private void showFightWindow() {
+        System.out.println("Fight window");
     }
 
-
 }
+
+

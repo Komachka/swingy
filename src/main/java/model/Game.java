@@ -17,6 +17,9 @@ public class Game {
         this.hero = hero;
         villain = new Villain();
         generateMap();
+        hero.setX(gameMup.getCenterX());
+        hero.setY(gameMup.getCenterY());
+
 
     }
 
@@ -27,7 +30,7 @@ public class Game {
     }
 
 
-    public boolean playGameRound(int direction)
+    public boolean playGameRoundAndCloseToenemy(int direction)
     {
         hero.move(direction, gameMup);
         System.out.println("x  : "  + getHeroX() +  " y : "  + getHeroY());
@@ -37,6 +40,12 @@ public class Game {
         }
         return false;
     }
+
+    public boolean isGameOver()
+    {
+
+    }
+
 
     private boolean isCloseToEnemy() {
         if (hero.getX() == villain.getX() || hero.getY() == villain.getY())
@@ -95,5 +104,10 @@ public class Game {
     public int getEnemyY()
     {
         return villain.getY();
+    }
+
+    public int getScale()
+    {
+        return gameMup.getScale();
     }
 }

@@ -18,62 +18,58 @@ public abstract class Character {
         return X;
     }
 
-    public void setX(int x) {
-        X = x;
-    }
-
     public int getY() {
         return Y;
     }
 
-    public void setY(int y) {
-        Y = y;
-    }
-
     public void move(int direction, GameMup map)
     {
-        System.out.println("Move" + direction);
         switch (direction) {
             case UP:  moveUp(map);
                 break;
             case RIGHT: moveRight(map);
                 break;
-            case DOWN: moveDown();
+            case DOWN: moveDown(map);
                 break;
-            case LEFT: moveLeft();
+            case LEFT: moveLeft(map);
                 break;
         }
     }
 
-    private void moveDown() {
-        System.out.println("Move down");
-        if (Y - 1 >= 0)
+    private void moveDown(GameMup map) {
+        if (Y + map.getScale() <= map.getHEIGHT() - map.getScale())
         {
-            this.Y -=1;
-            System.out.println("Y = " + Y);
+            this.Y +=map.getScale();
         }
     }
 
     private void moveUp(GameMup map) {
-        if (Y + 1 <= map.HEIGHT)
+        if (Y - map.getScale() >= 0)
         {
-            this.Y -=1;
+            this.Y -=map.getScale();
         }
     }
 
     private void moveRight(GameMup map) {
-        if (X + 1 <= map.WIDTH)
+        if (X + map.getScale() <= map.getWIDTH() - map.getScale())
         {
-            this.X -=1;
+            this.X +=map.getScale();
         }
     }
-    private void moveLeft() {
-        if (X -1 >= 0)
+    private void moveLeft(GameMup map) {
+        if (X - map.getScale() >= 0)
         {
-            this.X -=1;
+            this.X -=map.getScale();
         }
     }
 
+    public void setX(int x) {
+        X = x;
+    }
+
+    public void setY(int y) {
+        Y = y;
+    }
 }
 
 
