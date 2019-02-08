@@ -14,6 +14,13 @@ public abstract class Character {
         Y = 0;
     }
 
+    public Character(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
+
     public int getX() {
         return X;
     }

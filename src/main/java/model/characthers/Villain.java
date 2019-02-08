@@ -8,14 +8,8 @@ public  class Villain extends Character {
 
     public Villain(int x, int y, int power)
     {
-        super();
-        setX(x);
-        setY(y);
+        super(x, y);
         this.power = power;
-    }
-
-    public Villain() {
-        super();
     }
 
     public int getPower() {

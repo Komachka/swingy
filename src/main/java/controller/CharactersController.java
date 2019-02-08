@@ -13,8 +13,12 @@ public class CharactersController {
 
     }
 
-    public void saveHeroToDatabase(Hero hero) {
+    public void saveHero(Hero hero) {
         manager.insertHero(hero);
 
+    }
+
+    public void updateHero(Hero hero) {
+        manager.updateHero(hero);
     }
 }

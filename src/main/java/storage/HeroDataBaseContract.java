@@ -52,5 +52,17 @@ public interface HeroDataBaseContract {
                     COLUMN_HP +") " +           //10
                     "VALUES(?,?,?,?,?,?,?,?,?,?);";
 
+    public static final String UPDATE_HERO_SQL =
+            "UPDATE "+TABLE_NAME+" SET "+
+                    COLUMN_LEVEL +" = ?, "+         //1
+                    COLUMN_EXPERIENCE +" = ? , "+   //2
+                    COLUMN_ATTACK +" = ?, "+        //3
+                    COLUMN_DEFENSE +" = ?, "+       //4
+                    COLUMN_WEAPON +" = ?, "+        //5
+                    COLUMN_HELM +" = ?, "+          //6
+                    COLUMN_ARMOR +" = ?, "+         //7
+                    COLUMN_HP +" = ? " +            //8
+                    "where "+COLUMN_ID+" = ?;";
+
 
 }

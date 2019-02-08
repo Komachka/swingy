@@ -1,5 +1,6 @@
 package model;
 
+import model.characthers.Hero;
 import model.characthers.Villain;
 import view.PlayMission;
 import javax.validation.constraints.Min;
@@ -21,37 +22,45 @@ public class GameMup {
     private int squareSizeMap;
 
 
-    public GameMup(int heroLevel, ArrayList<Villain> villains) {
-        this.squareSizeMap = (heroLevel - 1)*5 + 10 - (heroLevel%2);
+    public GameMup(Hero hero, ArrayList<Villain> villains) {
+        this.squareSizeMap = (hero.getLevel() - 1)*5 + 10 - (hero.getLevel()%2);
         this.villains = villains;
         calcScale();
         WIDTH = this.squareSizeMap * scale;
         HEIGHT = this.squareSizeMap * scale;
-        putVillainsOnAMap(heroLevel);
+        putVillainsOnAMap(hero);
     }
 
     public ArrayList<Villain> getVillains() {
         return villains;
     }
 
-    private void putVillainsOnAMap(int heroLevel) {
+    private void putVillainsOnAMap(Hero hero) {
 
         System.out.println("Put villains on map");
-        for (int i = 0; i <= heroLevel*2; i++)
+        for (int i = 0; i <= hero.getLevel()*2; i++)
         {
             int x = randomWithRange(0, squareSizeMap - 1);
             int y = randomWithRange(0, squareSizeMap - 1);
-            int power = randomWithRange(0, heroLevel);
-            System.out.println("x y power " + x  + " " + y + " " + power);
-            System.out.println("Scale " + scale);
             x *=scale;
             y *=scale;
-            System.out.println("x y power " + x  + " " + y + " " + power);
-            villains.add(new Villain(x, y, power));
+            villains.add(new Villain(x, y, generateVillainPower(hero)));
         }
 
         System.out.println("villains.size() " + villains.size());
 
+    }
+
+    private int generateVillainPower(Hero hero) {
+        int attack = randomWithRange(hero.getAttack() - 20, hero.getAttack() + 2 + hero.getLevel());
+        int defense = randomWithRange(hero.getDefense() - 20, hero.getDefense() + 2 + hero.getLevel());
+        int hitPoints = randomWithRange(hero.getHitPoints() - 50, hero.getHitPoints() + 20 + hero.getLevel());
+
+        attack = attack < 0 ? -attack : attack;
+        defense = defense < 0 ? -defense : defense;
+        hitPoints = hitPoints < 0 ? -hitPoints : hitPoints;
+        System.out.println("Random power " + attack + defense + hitPoints);
+        return attack + defense + hitPoints;
     }
 
 

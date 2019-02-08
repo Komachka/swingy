@@ -20,7 +20,10 @@ Hero mage = new Hero.Builder(HeroClass.MAGE, "Riobard").withHairColor(HairColor.
 public class Hero extends Character {
     //TODO add loombok anotations
 
-    @NotNull String name;
+    @NotNull
+    private int id;
+    @NotNull
+    private String name;
     @NotNull
     private HeroClass heroClass;
     @NotNull
@@ -45,6 +48,7 @@ public class Hero extends Character {
     private Hero(@NotNull HeroBuilder builder) {
 
         super();
+        this.id = builder.id;
         this.heroClass = builder.heroClass;
         this.name = builder.name;
         this.weapon = builder.weapon;
@@ -60,6 +64,8 @@ public class Hero extends Character {
 
     public static class HeroBuilder {
 
+        @NotNull
+        private int id;
         @NotNull
         private HeroClass heroClass;
         @NotNull
@@ -84,8 +90,15 @@ public class Hero extends Character {
         private int hitPoints;
 
 
-        public HeroBuilder(HeroClass heroClass, String name)
+        public HeroBuilder(@NotNull HeroClass heroClass,@NotNull String name, int id)
         {
+            this.heroClass = heroClass;
+            this.name = name;
+            this.id = id;
+        }
+
+
+        public HeroBuilder(@NotNull HeroClass heroClass, @NotNull String name) {
             this.heroClass = heroClass;
             this.name = name;
         }
@@ -184,7 +197,27 @@ public class Hero extends Character {
         return hitPoints;
     }
 
+    public int getId() {
+        return id;
+    }
 
 
+    public void setExperience(int enemyPower) {
+        this.experience += enemyPower;
+    }
 
+    @Override
+    public String toString() {
+        return "Hero info\n" +
+                "Name\t" + name + "\n" +
+                "Class\t" + heroClass + "\n" +
+                "Level\t" + level + "\n" +
+                "Experience\t" + experience + "\n" +
+                "Attack\t" + attack + "\n" +
+                "Defense\t" + defense + "\n" +
+                "HitPoints\t" + hitPoints + "\n" +
+                "Weapon\t" + weapon + "\n" +
+                "Armor\t" + armor + "\n" +
+                "Helm\t" + helm + "\n";
+    }
 }

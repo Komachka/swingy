@@ -79,6 +79,23 @@ public class DBManager implements HeroDao {
 
     @Override
     public void updateHero(Hero hero) {
+        try (Connection connection = DBConnection.getDBConnection();
+             PreparedStatement pstmt = connection.prepareStatement(HeroDataBaseContract.UPDATE_HERO_SQL)) {
+            pstmt.setString(1, String.valueOf(hero.getLevel()));
+            pstmt.setString(2, String.valueOf(hero.getExperience()));
+            pstmt.setString(3, String.valueOf(hero.getAttack()));
+            pstmt.setString(4, String.valueOf(hero.getDefense()));
+            pstmt.setString(5, String.valueOf(hero.getWeapon().name()));
+            pstmt.setString(6, String.valueOf(hero.getHelm().name()));
+            pstmt.setString(7, String.valueOf(hero.getArmor().name()));
+            pstmt.setString(8, String.valueOf(hero.getHitPoints()));
+            pstmt.setInt(9, hero.getId());
+            pstmt.executeUpdate();
+            System.out.println("Data has been inserted");
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
 
     }
 
@@ -109,6 +126,7 @@ public class DBManager implements HeroDao {
     private Hero createHero(ResultSet rs) {
         try {
             HeroClass heroClass = HeroClass.valueOf(rs.getString(HeroDataBaseContract.COLUMN_HEROCLASS));
+            int id = rs.getInt(HeroDataBaseContract.COLUMN_ID);
             String name = rs.getString(HeroDataBaseContract.COLUMN_NAME);
             String level = rs.getString(HeroDataBaseContract.COLUMN_LEVEL);
             String experience = rs.getString(HeroDataBaseContract.COLUMN_EXPERIENCE);
@@ -119,7 +137,7 @@ public class DBManager implements HeroDao {
             Helm helm = Helm.valueOf(rs.getString(HeroDataBaseContract.COLUMN_HELM));
             Armor armor = Armor.valueOf(rs.getString(HeroDataBaseContract.COLUMN_ARMOR));
 
-            Hero hero = new Hero.HeroBuilder(heroClass, name)
+            Hero hero = new Hero.HeroBuilder(heroClass, name, id)
                     .addWeapon(weapon)
                     .addArmor(armor)
                     .addHelm(helm)

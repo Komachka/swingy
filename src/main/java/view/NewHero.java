@@ -153,14 +153,14 @@ public class NewHero extends JPanel implements ActionListener {
             Armor armor = Armor.values()[armors.getSelectedIndex()];
             Helm helm = Helm.values()[helms.getSelectedIndex()];
             Hero newHero = new Hero.HeroBuilder(hClass,name)
+                    .setAttack(hClass.getAttack())
+                    .setDefense(hClass.getDefense())
                     .addWeapon(weapon)
                     .addArmor(armor)
                     .addHelm(helm)
                     .build();
-            charactesController.saveHeroToDatabase(newHero);
+            charactesController.saveHero(newHero);
             windowManager.showSelectedMission(newHero);
-
-
         }
 
         if (ACTION_CANCEL.equals(e.getActionCommand()))

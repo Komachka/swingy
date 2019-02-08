@@ -52,7 +52,7 @@ public class StartGame extends JFrame implements WindowManager {
         setLayout(new GridLayout(3, 1));
 
         headerLabel = new JLabel("Choose game settings",JLabel.CENTER);
-        headerLabel.setSize(350,100);
+        headerLabel.setSize(600,610);
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent windowEvent){

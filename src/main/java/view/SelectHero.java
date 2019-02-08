@@ -61,7 +61,7 @@ public class SelectHero extends JPanel implements ActionListener {
 
         JPanel statusPane = new JPanel();
         statusPane.setLayout(new BoxLayout(statusPane, BoxLayout.PAGE_AXIS));
-        JLabel label2 = new JLabel("Hero status");
+        JLabel label2 = new JLabel();
 
         area = new JTextArea(30, 30);
         area.setText("Hero info...");
@@ -72,8 +72,6 @@ public class SelectHero extends JPanel implements ActionListener {
         statusPane.add(label2);
         statusPane.add(area);
 
-
-        //Lay out the buttons from left to right.
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
         buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
@@ -82,11 +80,6 @@ public class SelectHero extends JPanel implements ActionListener {
         buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
         buttonPane.add(setButton);
 
-
-
-
-        //Put everything together, using the content pane's BorderLayout.
-        //Container contentPane = this;
         add(listPane, BorderLayout.WEST);
         add(statusPane, BorderLayout.EAST);
         add(buttonPane, BorderLayout.SOUTH);
@@ -142,18 +135,8 @@ public class SelectHero extends JPanel implements ActionListener {
                 //super.mouseClicked(e);
                 if (e.getClickCount() == 2)
                 {
-                    System.out.println("choose");
-
-                    System.out.println("Selected value " + availableHeroes.getSelectedValue().toString());
-                    System.out.println("Selected index " + availableHeroes.getSelectedIndex());
-
                     int index = availableHeroes.getSelectedIndex();
-                    StringBuilder heroInfo = new StringBuilder("Hero Name\n");
-                    heroInfo.append(storage.getHero(index).getName()).append("\n");
-
-                    //TODO method getArmor
-                    heroInfo.append("Herro armor ").append(storage.getHero(index).getArmor().toString()).append("\n");
-                    area.setText(heroInfo.toString());
+                    area.setText(storage.getHero(index).toString());
 
                     //it in on if we want to emulate click on set button
                     //setButton.doClick(); // emulate button click
@@ -181,22 +164,10 @@ public class SelectHero extends JPanel implements ActionListener {
         System.out.println("e.getActionCommand() " + e.getActionCommand());
         if (ACTION_SET.equals(e.getActionCommand()))
         {
-            /*
-            System.out.println("Selected value " + availableHeroes.getSelectedValue().toString());
-            System.out.println("Selected index " + availableHeroes.getSelectedIndex());
-
-            int index = availableHeroes.getSelectedIndex();
-            StringBuilder heroInfo = new StringBuilder("Hero Name\n");
-            heroInfo.append(storage.getHero(index).getName()).append("\n");
-
-            //TODO method getArmor
-            heroInfo.append("Herro armor ").append(storage.getHero(index).getArmor().toString()).append("\n");
-            area.setText(heroInfo.toString());
-            */
-            //start mission with spesefic hero
-            windowManager.showSelectedMission(storage.getHero(availableHeroes.getSelectedIndex()));
-
-
+            if (availableHeroes.getSelectedIndex() != -1)
+            {
+                windowManager.showSelectedMission(storage.getHero(availableHeroes.getSelectedIndex()));
+            }
         }
 
         if (ACTION_CANCEL.equals(e.getActionCommand()))

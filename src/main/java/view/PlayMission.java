@@ -1,5 +1,6 @@
 package view;
 
+import controller.CharactersController;
 import controller.GamePlayController;
 import model.Game;
 import model.GameMup;
@@ -9,8 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 
 // it is like a view!
 
@@ -26,6 +25,7 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
     private Game game;
     private Hero hero;
     private GamePlayController controller;
+    private CharactersController charactersController = new CharactersController();
     private GamePanel gamePnel;
     private WindowManager windowManager;
 
@@ -107,7 +107,7 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
                 direction = GameMup.LEFT;
                 break;
         }
-        game.isPlayRoundGameOver(direction);
+        game.playRound(direction);
 
         if (game.isGameOver)
         {
@@ -125,20 +125,38 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
         gamePnel.repaint();
     }
 
+
+    //Leveling up is based on the following formula level*1000+(level − 1)2*450.
+    //So the necessary experience to level up will follow this pattern:
+    // • Level 1 - 1000 XP • Level 2 - 2450 XP • Level 3 - 4800 XP • Level 4 - 8050 XP • Level 5 - 12200 XP
+
+    //If a hero wins a battle, he gains:
+    //Experience points, based on the villain power.
+    //Of course, he will level up if he reaches the next level experience.
+    //• An artifact, which he can keep or leave.
+    // Of course, winning a battle doesn’t guarantee that an artefact will be droped
+    // and the quality of the artefact also varies depending on the villain’s strenght.
+
     private void showGameOverWindow() {
         System.out.println("Game over window");
         //int answer = JOptionPane.showConfirmDialog(this, "Game is over. You are winner");
         JOptionPane.showMessageDialog(null,"Game over. You are WIN!");
+        game.increaseExpRichBorder();
+        charactersController.updateHero(hero);
         windowManager.restartGame();
 
+
     }
+
+
+
 
     private void showFightModeWindow()
     {
         System.out.println("Fight window");
         int answer = JOptionPane.showConfirmDialog(this, "FIGHT???\n\n\nCLICK YES TO FIGHT \n CLICK NO TO RUN");
         if (answer == JOptionPane.YES_OPTION) {
-            // User clicked YES.
+            game.fight();
         } else if (answer == JOptionPane.NO_OPTION) {
             // User clicked NO.
         }

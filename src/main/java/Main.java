@@ -1,6 +1,9 @@
 import model.characthers.HeroClass;
 import view.StartGame;
 
+import javax.print.Doc;
+import java.util.Hashtable;
+
 public class Main {
 
 
@@ -41,5 +44,14 @@ public class Main {
 
         StartGame app = new StartGame();
         //app.start();
+
+
+
     }
+
+
+
+
+
+
 }
