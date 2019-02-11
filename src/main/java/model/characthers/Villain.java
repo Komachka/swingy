@@ -1,5 +1,7 @@
 package model.characthers;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+
 import javax.validation.constraints.NotNull;
 
 public  class Villain extends Character {
@@ -14,5 +16,15 @@ public  class Villain extends Character {
 
     public int getPower() {
         return power;
+    }
+
+    public void attack(Hero hero)
+    {
+        int pointsOfDefence = hero.getHitPoints() + hero.getDefense();
+        hero.decreaseHP(Math.abs(power - pointsOfDefence));
+    }
+
+    public void decreasePower(@NotNull int attack) {
+        power-=attack;
     }
 }

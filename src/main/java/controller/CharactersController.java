@@ -13,12 +13,18 @@ public class CharactersController {
 
     }
 
-    public void saveHero(Hero hero) {
-        manager.insertHero(hero);
+    public boolean saveHero(Hero hero) {
+        return manager.insertHero(hero);
 
     }
 
-    public void updateHero(Hero hero) {
-        manager.updateHero(hero);
+    public boolean updateHero(Hero hero) {
+        hero.setDefXP();
+
+        return manager.updateHero(hero);
+    }
+
+    public boolean deleteHero(Hero hero) {
+       return manager.deleteHero(hero);
     }
 }

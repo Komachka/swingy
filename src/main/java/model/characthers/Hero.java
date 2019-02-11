@@ -62,6 +62,25 @@ public class Hero extends Character {
 
     }
 
+    public void decreaseHP(int HP) {
+        this.hitPoints -= HP;
+    }
+
+
+    public void attack(Villain villain)
+    {
+        villain.decreasePower(attack);
+    }
+
+
+    //Leveling up is based on the following formula level*1000+(level − 1)2*450.
+    //So the necessary experience to level up will follow this pattern:
+    // • Level 1 - 1000 XP • Level 2 - 2450 XP • Level 3 - 4800 XP • Level 4 - 8050 XP • Level 5 - 12200 XP
+
+    public void setDefXP() {
+        hitPoints = level * 1000 + (level - 1)* (level - 1) * 450;
+    }
+
     public static class HeroBuilder {
 
         @NotNull
@@ -202,8 +221,22 @@ public class Hero extends Character {
     }
 
 
-    public void setExperience(int enemyPower) {
-        this.experience += enemyPower;
+    public void addExperience(int xp) {
+        //int nextLevel = (level + 1) * 1000 + level * level * 450;
+        int nextLevel = level * 1000 + (level - 1)* (level - 1) * 450;
+        if (experience + xp >= nextLevel)
+            increaseLevel();
+        experience += xp;
+        System.out.println("Herro experianse is "  + experience);
+
+
+    }
+
+    private void increaseLevel() {
+        level++;
+        //hitPoints += 50 + level * 10;
+        attack += level * 3;
+        defense += level * 2;
     }
 
     @Override

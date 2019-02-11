@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HerroStorage {
+public class HeroStorage {
     private List<Hero> heroes;
     private final static String FILE_NAME = "heroes.txt";
 
-    public HerroStorage() {
+    public HeroStorage() {
 
         DBManager dbManager = new DBManager();
         this.heroes = dbManager.getAllHeroes();

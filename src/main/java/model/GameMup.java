@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class GameMup {
     public static final int UP = 1;
     public static final int RIGHT = 2;
-    public static final int DOWN = 3;
-    public static final int LEFT = 4;
+    public static final int DOWN = -1;
+    public static final int LEFT = -2;
     private int WIDTH;
     private int HEIGHT;
     private int scale;
@@ -38,7 +38,7 @@ public class GameMup {
     private void putVillainsOnAMap(Hero hero) {
 
         System.out.println("Put villains on map");
-        for (int i = 0; i <= hero.getLevel()*2; i++)
+        for (int i = 0; i <= hero.getLevel()*10; i++)
         {
             int x = randomWithRange(0, squareSizeMap - 1);
             int y = randomWithRange(0, squareSizeMap - 1);

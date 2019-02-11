@@ -1,10 +1,18 @@
+import com.sun.javafx.collections.MappingChange;
 import model.characthers.HeroClass;
 import view.StartGame;
 
 import javax.print.Doc;
-import java.util.Hashtable;
+import java.util.*;
 
-public class Main {
+public  class Main {
+
+    interface I1{};
+    interface I2 extends  I1{};
+
+
+    public class C implements I1, I2 {}
+
 
 
     enum GameModes {
@@ -13,7 +21,12 @@ public class Main {
     }
 
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args)  {
+
+
+
+
 
 
 /*
@@ -48,10 +61,5 @@ public class Main {
 
 
     }
-
-
-
-
-
 
 }

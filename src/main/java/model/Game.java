@@ -2,9 +2,12 @@ package model;
 
 import model.characthers.Hero;
 import model.characthers.Villain;
+import model.characthers.Character;
 import view.MoveObserver;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 
 /**
  *
@@ -16,9 +19,6 @@ import java.util.ArrayList;
  * If the odds aren’t on his side, he must fight the villain.
  *
  */
-
-
-
 
 public class Game {
 
@@ -96,24 +96,56 @@ public class Game {
     // If the odds aren’t on his side, he must fight the villain.
     public boolean run()
     {
-        return false;
+        int max = 10;
+        int min = 1;
+        int range = max - min + 1;
+        int rand = (int)(Math.random() * range) + min;
+        System.out.println("rand " + rand);
+        if (rand % 2 == 0)
+            return true;
+        else
+            return false;
+
     }
 
 
 
-    //You will need to simulate the battle between the hero and monster
-    // and present the user the outcome of the battle.
-    // We leave it at you to find a nice simulation algorythm
-    // that decides based on the hero and monster stats,
-    // who will win. You can include a small "luck",
-    // component in the algo in order to make the game more entertaining.
 
-    public Character fight()
+    public boolean fight()
     {
-        System.out.println("currentVillain.getPower()" + currentVillain.getPower());
-        System.out.println(hero.toString());
 
-        return null;
+        if (isLack())
+            return true;
+
+        while (hero.getHitPoints() > 0 && currentVillain.getPower() > 0)
+        {
+            hero.attack(currentVillain);
+            currentVillain.attack(hero);
+            System.out.println("Hero XP " + hero.getHitPoints());
+            System.out.println("Enemy power " + currentVillain.getPower());
+        }
+        if (hero.getHitPoints() <= 0) {
+
+            return false;
+        }
+        if (currentVillain.getPower() <= 0) {
+            villains.remove(currentVillain);
+            currentVillain = null;
+            return true;
+
+        }return false;
+    }
+
+    private boolean isLack() {
+        int max = 10;
+        int min = 1;
+        int range = max - min + 1;
+        int rand = (int)(Math.random() * range) + min;
+        System.out.println("rand " + rand);
+        if (rand <= 5)
+            return true;
+        else
+            return false;
     }
 
     //
@@ -162,11 +194,17 @@ public class Game {
         return gameMup.getScale();
     }
 
-    public void increaseExpWinButl() {
-        hero.setExperience(currentVillain.getPower());
-    }
+    public void addExperience() {
+        int experience = 0;
+        if (isGameOver && currentVillain == null)
+            experience = 100;
+        else if (isGameOver && currentVillain != null)
+        {
+            experience = currentVillain.getPower();
+        }
 
-    public void increaseExpRichBorder() {
-        hero.setExperience(50);
+        hero.addExperience(experience);
+
+
     }
 }

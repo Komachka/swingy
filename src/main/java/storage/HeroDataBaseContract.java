@@ -19,7 +19,7 @@ public interface HeroDataBaseContract {
     public static final String SQL_CREATE_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY, " +
-                    COLUMN_NAME + " TEXT NOT NULL, " +
+                    COLUMN_NAME + " TEXT NOT NULL UNIQUE, " +
                     COLUMN_HEROCLASS + " TEXT NOT NULL, " +
                     COLUMN_LEVEL + " TEXT NOT NULL, " +
                     COLUMN_EXPERIENCE + " TEXT NOT NULL, " +
@@ -36,6 +36,9 @@ public interface HeroDataBaseContract {
 
     public static final String SQL_SELECT_ALL =
             "SELECT * FROM " + TABLE_NAME;
+
+    public static final String SQL_DELETE_BY_ID =
+            "DELETE FROM "+TABLE_NAME+" WHERE "+COLUMN_ID+" = ?";
 
 
     public static final String INSERT_INTO =

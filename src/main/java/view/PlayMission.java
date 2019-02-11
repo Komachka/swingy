@@ -4,15 +4,14 @@ import controller.CharactersController;
 import controller.GamePlayController;
 import model.Game;
 import model.GameMup;
+import model.characthers.Character;
 import model.characthers.Hero;
+import model.characthers.Villain;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-// it is like a view!
-
 
 
 public class PlayMission extends JPanel implements ActionListener, MoveObserver{
@@ -26,7 +25,7 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
     private Hero hero;
     private GamePlayController controller;
     private CharactersController charactersController = new CharactersController();
-    private GamePanel gamePnel;
+    private GamePanel gamePanel;
     private WindowManager windowManager;
 
     JButton buttonUp = new JButton("North");
@@ -43,12 +42,12 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
     public PlayMission(Hero hero, WindowManager windowManager) {
         this.windowManager = windowManager;
         this.hero = hero;
+        System.out.println("play mission " + hero.toString());
         game = new Game(this.hero);
         this.controller = new GamePlayController();
-        this.gamePnel = new GamePanel(game);
+        this.gamePanel = new GamePanel(game);
         game.registerObserver((MoveObserver) this);
         createView();
-        //startGame(hero);
 
     }
 
@@ -73,9 +72,9 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
         boxPane.add(buttonLeft);
         boxPane.add(buttonRight);
         add(boxPane, BorderLayout.PAGE_START);
-        gamePnel.setPreferredSize(new Dimension(game.getMapW(), game.getMapH()));
-        gamePnel.setMaximumSize(new Dimension(game.getMapW(), game.getMapH()));
-        add(gamePnel, BorderLayout.CENTER);
+        gamePanel.setPreferredSize(new Dimension(game.getMapW(), game.getMapH()));
+        gamePanel.setMaximumSize(new Dimension(game.getMapW(), game.getMapH()));
+        add(gamePanel, BorderLayout.CENTER);
     }
 
 
@@ -111,55 +110,84 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver{
 
         if (game.isGameOver)
         {
-            gamePnel.setEnemyColour();
-            gamePnel.repaint();
-            showGameOverWindow();
+            gamePanel.setEnemyColour();
+            gamePanel.repaint();
+            showGameOverWindow("Game over. You are WINNER!");
             return;
         }
         if (game.isFightMode) {
-            gamePnel.setEnemyColour();
-            gamePnel.repaint();
-            showFightModeWindow();
+            gamePanel.setEnemyColour();
+            gamePanel.repaint();
+            showFightModeWindow(direction);
             return;
         }
-        gamePnel.repaint();
+        gamePanel.repaint();
+    }
+
+    private void showGameOverWindow(String message) {
+        System.out.println("Game over window");
+        JOptionPane.showMessageDialog(null,message);
+        gameOver();
+
+    }
+
+///TODO переписать этот метод!!
+    private void showFightModeWindow(int direction)
+    {
+        //if click on fight you fight
+        //if you loose to run you fight
+
+
+        System.out.println("Fight window");
+        int answer = JOptionPane.showConfirmDialog(this, "FIGHT???\n\n\nCLICK YES TO FIGHT\n CLICK NO TO RUN");
+        if (answer == JOptionPane.YES_OPTION) {
+            if (!game.fight())
+            {
+                System.out.println("Hero is loose");
+                showGameOverWindow("YOU ARE LOOSER");
+                gameOver();
+            }
+            else
+            {
+                game.addExperience();
+                JOptionPane.showMessageDialog(null,"You are win with this enemy");
+                //add observer to know if experence increase
+
+
+            }
+        } else if (answer == JOptionPane.NO_OPTION) {
+             if (game.run())
+             {
+                 game.playRound(-direction);
+             }
+             else
+             {
+                 if (!game.fight())
+                 {
+                     System.out.println("Hero is loose");
+                     showGameOverWindow("YOU ARE LOOSER");
+                     gameOver();
+                 }
+                 else
+                 {
+                     game.addExperience();
+                     JOptionPane.showMessageDialog(null,"You are win with this enemy");
+                     //add observer to know if experence increase
+
+
+                 }
+             }
+
+        }
     }
 
 
-    //Leveling up is based on the following formula level*1000+(level − 1)2*450.
-    //So the necessary experience to level up will follow this pattern:
-    // • Level 1 - 1000 XP • Level 2 - 2450 XP • Level 3 - 4800 XP • Level 4 - 8050 XP • Level 5 - 12200 XP
-
-    //If a hero wins a battle, he gains:
-    //Experience points, based on the villain power.
-    //Of course, he will level up if he reaches the next level experience.
-    //• An artifact, which he can keep or leave.
-    // Of course, winning a battle doesn’t guarantee that an artefact will be droped
-    // and the quality of the artefact also varies depending on the villain’s strenght.
-
-    private void showGameOverWindow() {
-        System.out.println("Game over window");
-        //int answer = JOptionPane.showConfirmDialog(this, "Game is over. You are winner");
-        JOptionPane.showMessageDialog(null,"Game over. You are WIN!");
-        game.increaseExpRichBorder();
+    private void gameOver()
+    {
+        System.out.println("Game over");
+        game.addExperience();
         charactersController.updateHero(hero);
         windowManager.restartGame();
-
-
-    }
-
-
-
-
-    private void showFightModeWindow()
-    {
-        System.out.println("Fight window");
-        int answer = JOptionPane.showConfirmDialog(this, "FIGHT???\n\n\nCLICK YES TO FIGHT \n CLICK NO TO RUN");
-        if (answer == JOptionPane.YES_OPTION) {
-            game.fight();
-        } else if (answer == JOptionPane.NO_OPTION) {
-            // User clicked NO.
-        }
     }
 
 }

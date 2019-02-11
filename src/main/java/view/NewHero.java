@@ -15,12 +15,8 @@ import java.awt.event.ActionListener;
 public class NewHero extends JPanel implements ActionListener {
     private static final String ACTION_SAVE = "Save";
     private static final String ACTION_CANCEL = "Cancel";
-    private CharactersController charactesController = new CharactersController();
+    private CharactersController charactersController = new CharactersController();
     private WindowManager windowManager;
-
-
-
-
     private JTextField textUsername;
     private JComboBox<String> heroClasses;
     private JComboBox<String> weapons;
@@ -29,9 +25,7 @@ public class NewHero extends JPanel implements ActionListener {
 
 
     public NewHero(WindowManager windowManager) {
-        System.out.println("New hero constructor");
         this.windowManager = windowManager;
-        //newHero = this;
         setSize(450,400);
         initComponents();
 
@@ -39,12 +33,7 @@ public class NewHero extends JPanel implements ActionListener {
     }
 
     private void initComponents() {
-        System.out.println("Init components");
-
         setLayout(new GridBagLayout());
-
-
-
         JLabel labelUsername = new JLabel("Enter name:  ");
         JLabel labelRace = new JLabel("Choose the race:  ");
         JLabel labelWeapon = new JLabel("Choose the weapon:  ");
@@ -53,7 +42,6 @@ public class NewHero extends JPanel implements ActionListener {
 
 
         textUsername = new JTextField(20);
-
 
 
         JButton cancelButton = new JButton("Cancel");
@@ -123,9 +111,6 @@ public class NewHero extends JPanel implements ActionListener {
         cancelButton.setActionCommand(ACTION_CANCEL);
         cancelButton.addActionListener(this);
         add(cancelButton, constraints);
-
-
-
         constraints.gridx = 1;
         constraints.gridy = 5;
         constraints.gridwidth = 2;
@@ -133,21 +118,27 @@ public class NewHero extends JPanel implements ActionListener {
         buttonSave.setActionCommand(ACTION_SAVE);
         buttonSave.addActionListener(this);
         add(buttonSave, constraints);
-
-        // set border for the panel
         setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Create new hero"));
 
-        // add the panel to this frame
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
+
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("e.getActionCommand() " + e.getActionCommand());
         if (ACTION_SAVE.equals(e.getActionCommand()))
         {
             String name = textUsername.getText();
+            if (name == null || name.isEmpty())
+            {
+                JOptionPane.showMessageDialog(null,"Name can not be empty");
+                return;
+            }
+
             HeroClass hClass = HeroClass.values()[heroClasses.getSelectedIndex()];
             Weapon weapon = Weapon.values()[weapons.getSelectedIndex()];
             Armor armor = Armor.values()[armors.getSelectedIndex()];
@@ -159,8 +150,10 @@ public class NewHero extends JPanel implements ActionListener {
                     .addArmor(armor)
                     .addHelm(helm)
                     .build();
-            charactesController.saveHero(newHero);
-            windowManager.showSelectedMission(newHero);
+            if (!charactersController.saveHero(newHero))
+                JOptionPane.showMessageDialog(null,"The hero with this name is already exists");
+            else
+                windowManager.showSelectedHero();
         }
 
         if (ACTION_CANCEL.equals(e.getActionCommand()))

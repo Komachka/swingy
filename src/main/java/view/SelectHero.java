@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
-import storage.HerroStorage;
+import controller.CharactersController;
+import storage.HeroStorage;
 
 public class SelectHero extends JPanel implements ActionListener {
     //private static SelectHero selectHero;
@@ -16,7 +16,8 @@ public class SelectHero extends JPanel implements ActionListener {
     private static final String ACTION_CANCEL = "Cancel";
     private WindowManager windowManager;
     private JList availableHeroes;
-    private HerroStorage storage;
+    private HeroStorage storage;
+    private CharactersController charactersController = new CharactersController();
     private String initialValue;
     private static String value = "";
     JTextArea area;
@@ -25,15 +26,22 @@ public class SelectHero extends JPanel implements ActionListener {
 
 
     public SelectHero(WindowManager windowManager)  {
-        System.out.println("Select hero constructor");
         this.windowManager = windowManager;
-        storage = new HerroStorage();
-        setSize(450,400);
+        storage = new HeroStorage();
+        setUp();
+        start();
+    }
+
+    private void setUp()
+    {
         setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(700, 800));
         initComponents();
+    }
 
+    private void start()
+    {
         setVisible(true);
-
     }
 
 
@@ -85,6 +93,9 @@ public class SelectHero extends JPanel implements ActionListener {
         add(buttonPane, BorderLayout.SOUTH);
         setValue(initialValue);
 
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
     }
 
     private void initJList() {
@@ -133,7 +144,7 @@ public class SelectHero extends JPanel implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //super.mouseClicked(e);
-                if (e.getClickCount() == 2)
+                if (e.getClickCount() == 1)
                 {
                     int index = availableHeroes.getSelectedIndex();
                     area.setText(storage.getHero(index).toString());
@@ -141,12 +152,29 @@ public class SelectHero extends JPanel implements ActionListener {
                     //it in on if we want to emulate click on set button
                     //setButton.doClick(); // emulate button click
                 }
+                if (e.getClickCount() == 2)
+                {
+                    showRemuveWindow();
+                }
             }
         });
         JScrollPane listScroller = new JScrollPane(availableHeroes);
-        listScroller.setPreferredSize(new Dimension(250, 250));
+        listScroller.setPreferredSize(new Dimension(300, 250));
         listScroller.setAlignmentX(LEFT_ALIGNMENT);
         listPane.add(listScroller);
+    }
+
+    private void showRemuveWindow() {
+        int answer = JOptionPane.showConfirmDialog(this, "Delete this hero?");
+        if (answer == JOptionPane.YES_OPTION) {
+            if (charactersController.deleteHero(storage.getHero(availableHeroes.getSelectedIndex())))
+            {
+                windowManager.restartGame();
+            };
+        }
+        else if (answer == JOptionPane.NO_OPTION) {
+            System.out.println("No");
+        }
     }
 
     private void setValue(String newValue) {
@@ -161,7 +189,6 @@ public class SelectHero extends JPanel implements ActionListener {
     // this method in started when mouseClicked and  e.getClickCount() == 2
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("e.getActionCommand() " + e.getActionCommand());
         if (ACTION_SET.equals(e.getActionCommand()))
         {
             if (availableHeroes.getSelectedIndex() != -1)
@@ -178,4 +205,5 @@ public class SelectHero extends JPanel implements ActionListener {
 
 
     }
+
 }

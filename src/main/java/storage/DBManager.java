@@ -57,7 +57,7 @@ public class DBManager implements HeroDao {
     }
 
     @Override
-    public  void insertHero(Hero hero) {
+    public  boolean insertHero(Hero hero) {
         try (Connection connection = DBConnection.getDBConnection();
              PreparedStatement pstmt = connection.prepareStatement(HeroDataBaseContract.INSERT_INTO)) {
             pstmt.setString(1, hero.getName());
@@ -72,13 +72,15 @@ public class DBManager implements HeroDao {
             pstmt.setString(10, String.valueOf(hero.getHitPoints()));
             pstmt.executeUpdate();
             System.out.println("Data has been inserted");
+            return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+            return false;
         }
     }
 
     @Override
-    public void updateHero(Hero hero) {
+    public boolean updateHero(Hero hero) {
         try (Connection connection = DBConnection.getDBConnection();
              PreparedStatement pstmt = connection.prepareStatement(HeroDataBaseContract.UPDATE_HERO_SQL)) {
             pstmt.setString(1, String.valueOf(hero.getLevel()));
@@ -92,16 +94,27 @@ public class DBManager implements HeroDao {
             pstmt.setInt(9, hero.getId());
             pstmt.executeUpdate();
             System.out.println("Data has been inserted");
+            return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+            return false;
         }
 
 
     }
 
     @Override
-    public void deleteHero(Hero hero) {
-
+    public boolean deleteHero(Hero hero) {
+        try (Connection connection = DBConnection.getDBConnection();
+             PreparedStatement pstmt = connection.prepareStatement(HeroDataBaseContract.SQL_DELETE_BY_ID)) {
+            pstmt.setInt(1, hero.getId());
+            pstmt.executeUpdate();
+            System.out.println("Data has been deleted");
+            return true;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
     }
 
 
@@ -147,6 +160,7 @@ public class DBManager implements HeroDao {
                     .setDefense(Integer.parseInt(defense))
                     .setHitPoints(Integer.parseInt(hitPoints))
                     .build();
+            hero.toString();
             return hero;
         } catch (SQLException e) {
             e.printStackTrace();
