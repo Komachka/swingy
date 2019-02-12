@@ -31,13 +31,9 @@ public class GameMup {
         putVillainsOnAMap(hero);
     }
 
-    public ArrayList<Villain> getVillains() {
-        return villains;
-    }
-
     private void putVillainsOnAMap(Hero hero) {
 
-        System.out.println("Put villains on map");
+        //System.out.println("Put villains on map");
         for (int i = 0; i <= hero.getLevel()*10; i++)
         {
             int x = randomWithRange(0, squareSizeMap - 1);
@@ -47,7 +43,7 @@ public class GameMup {
             villains.add(new Villain(x, y, generateVillainPower(hero)));
         }
 
-        System.out.println("villains.size() " + villains.size());
+        //System.out.println("villains.size() " + villains.size());
 
     }
 
@@ -59,7 +55,7 @@ public class GameMup {
         attack = attack < 0 ? -attack : attack;
         defense = defense < 0 ? -defense : defense;
         hitPoints = hitPoints < 0 ? -hitPoints : hitPoints;
-        System.out.println("Random power " + attack + defense + hitPoints);
+        //System.out.println("Random power " + attack + defense + hitPoints);
         return attack + defense + hitPoints;
     }
 

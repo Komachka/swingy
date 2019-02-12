@@ -3,6 +3,7 @@ package model.characthers;
 import model.artifacts.Armor;
 import model.artifacts.Helm;
 import model.artifacts.Weapon;
+import view.LevelUpObserver;
 
 import javax.validation.constraints.NotNull;
 
@@ -44,6 +45,7 @@ public class Hero extends Character {
     @NotNull
     private Helm helm; // increases hit points
 
+    private LevelUpObserver levelUpObserver;
 
     private Hero(@NotNull HeroBuilder builder) {
 
@@ -237,6 +239,8 @@ public class Hero extends Character {
         //hitPoints += 50 + level * 10;
         attack += level * 3;
         defense += level * 2;
+        setDefXP();
+        notifyLevelUp();
     }
 
     @Override
@@ -252,5 +256,15 @@ public class Hero extends Character {
                 "Weapon\t" + weapon + "\n" +
                 "Armor\t" + armor + "\n" +
                 "Helm\t" + helm + "\n";
+    }
+
+
+    private void notifyLevelUp() {
+        levelUpObserver.showLevelUpWindow();
+    }
+
+    public void registerLevelUpObserver(LevelUpObserver observer)
+    {
+        levelUpObserver = observer;
     }
 }

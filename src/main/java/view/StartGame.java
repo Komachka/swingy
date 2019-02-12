@@ -1,5 +1,7 @@
 package view;
 
+import controller.GamePlayController;
+import model.Game;
 import model.characthers.Hero;
 
 import javax.swing.*;
@@ -109,8 +111,9 @@ public class StartGame extends JFrame implements WindowManager {
 
     @Override
     public void showSelectedMission(Hero hero) {
-        PlayMission mission = new PlayMission(hero, this);
-        setContentPane(mission);
+        Game model = new Game(hero);
+        PlayMission view = new PlayMission(model, this);
+        setContentPane(view);
         pack();
     }
 

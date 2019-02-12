@@ -2,11 +2,9 @@ package model;
 
 import model.characthers.Hero;
 import model.characthers.Villain;
-import model.characthers.Character;
 import view.MoveObserver;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 /**
@@ -22,9 +20,10 @@ import java.util.Random;
 
 public class Game {
 
-    private ArrayList<MoveObserver> moveObserver = new ArrayList();
+    private ArrayList<MoveObserver> moveObserveres = new ArrayList();
     private Hero hero;
     private ArrayList<Villain> villains = new ArrayList<>();
+    private ArrayList<Villain> villainsLoosers = new ArrayList<>();
     private GameMup gameMup;
     public boolean isGameOver = false;
     public boolean isFightMode = false;
@@ -37,15 +36,15 @@ public class Game {
         hero.setY(gameMup.getCenterY());
     }
 
-
-
     public boolean playRound(int direction)
     {
         hero.move(direction, gameMup);
+        notifyMoveObservers();
         if (isBodredOver())
             return true;
         if (isCloseToEnemies())
             return true;
+
         return false;
     }
 
@@ -55,11 +54,14 @@ public class Game {
                 || hero.getY() <= 0 || hero.getY() >= gameMup.getHEIGHT())
         {
             isGameOver = true;
+            addHeroExperience();
+            notifyMoveObserversWinGame();
             return true;
         }
         else
             return false;
     }
+
 
 
     private void setFightMode(Villain villain)
@@ -74,7 +76,7 @@ public class Game {
     private boolean isCloseToEnemies() {
 
         int radius = getScale()-getScale()/2;
-        for (Villain villain : gameMup.getVillains())
+        for (Villain villain : villains)
         {
             int x1 = villain.getX() - radius;
             int x2 = villain.getX() + radius;
@@ -84,12 +86,15 @@ public class Game {
 
             if (hero.getX() > x1 && hero.getX() < x2 && hero.getY()> y1 && hero.getY() < y2) {
                 setFightMode(villain);
+                notifyMoveObserversFightMode();
                 return true;
             }
         }
         isFightMode = false;
         return false;
     }
+
+
 
 
     //Run, which gives him a 50% chance of returning to the previous position.
@@ -100,7 +105,7 @@ public class Game {
         int min = 1;
         int range = max - min + 1;
         int rand = (int)(Math.random() * range) + min;
-        System.out.println("rand " + rand);
+        System.out.println("run rand " + rand);
         if (rand % 2 == 0)
             return true;
         else
@@ -114,34 +119,47 @@ public class Game {
     public boolean fight()
     {
 
-        if (isLack())
+        if (isLack()) {
+            heroWin();
             return true;
-
+        }
         while (hero.getHitPoints() > 0 && currentVillain.getPower() > 0)
         {
             hero.attack(currentVillain);
+            hero.addExperience(50);
             currentVillain.attack(hero);
-            System.out.println("Hero XP " + hero.getHitPoints());
-            System.out.println("Enemy power " + currentVillain.getPower());
+            notifyMoveObserversFightProgressMode();
+
         }
         if (hero.getHitPoints() <= 0) {
-
+            notifyMoveObserversLooseMode();
             return false;
         }
         if (currentVillain.getPower() <= 0) {
-            villains.remove(currentVillain);
-            currentVillain = null;
+            heroWin();
+
             return true;
 
         }return false;
     }
+
+    private void heroWin() {
+        System.out.println("befor " + villains.size());
+        villainsLoosers.add(currentVillain);
+        villains.remove(currentVillain);
+        currentVillain = null;
+        System.out.println("after " + villains.size());
+        notifyMoveObserversRemuveVillain();
+        notifyMoveObserversWinEnemyMode();
+    }
+
 
     private boolean isLack() {
         int max = 10;
         int min = 1;
         int range = max - min + 1;
         int rand = (int)(Math.random() * range) + min;
-        System.out.println("rand " + rand);
+        System.out.println("is luck rand " + rand);
         if (rand <= 5)
             return true;
         else
@@ -151,12 +169,84 @@ public class Game {
     //
     public void registerObserver(MoveObserver observer)
     {
-        moveObserver.add(observer);
+        moveObserveres.add(observer);
     }
 
+    //TODO need to put somewhere
     public void removeObserver(MoveObserver observer)
     {
+        int i = moveObserveres.indexOf(observer);
+        if (i >= 0) {
+            moveObserveres.remove(i);
+        }
     }
+
+    //notify move
+    public void notifyMoveObservers() {
+        for(int i = 0; i < moveObserveres.size(); i++) {
+            MoveObserver observer = (MoveObserver) moveObserveres.get(i);
+            observer.updatePosition();
+        }
+    }
+
+    //notify win enemy
+    private void notifyMoveObserversWinEnemyMode() {
+        for(int i = 0; i < moveObserveres.size(); i++) {
+            MoveObserver observer = (MoveObserver) moveObserveres.get(i);
+            observer.updateWinEnemyMode();
+        }
+    }
+
+    private void notifyMoveObserversWinGame()
+    {
+        for(int i = 0; i < moveObserveres.size(); i++) {
+            MoveObserver observer = (MoveObserver) moveObserveres.get(i);
+            observer.updateWinGameMode();
+        }
+    }
+
+    //notify to open fight window
+    private void notifyMoveObserversFightMode() {
+        for(int i = 0; i < moveObserveres.size(); i++) {
+            MoveObserver observer = (MoveObserver) moveObserveres.get(i);
+            observer.updateFightMode();
+        }
+    }
+
+    //notify to loose the game
+    private void notifyMoveObserversLooseMode() {
+        for(int i = 0; i < moveObserveres.size(); i++) {
+            MoveObserver observer = (MoveObserver) moveObserveres.get(i);
+            observer.updateLooseMode();
+        }
+    }
+
+    //notify in progress fight to show the fight result
+    private void notifyMoveObserversFightProgressMode() {
+        for(int i = 0; i < moveObserveres.size(); i++) {
+            MoveObserver observer = (MoveObserver) moveObserveres.get(i);
+            observer.updateFightProgressMode();
+        }
+    }
+
+    //notify if vilian is remuved from mau
+    private void notifyMoveObserversRemuveVillain()
+    {
+        for(int i = 0; i < moveObserveres.size(); i++) {
+            MoveObserver observer = (MoveObserver) moveObserveres.get(i);
+            observer.updateVillainsOnMup();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     public Hero getHero() {
         return hero;
@@ -185,7 +275,7 @@ public class Game {
 
     public ArrayList<Villain> getEnemies()
     {
-        return gameMup.getVillains();
+        return villains;
     }
 
 
@@ -194,7 +284,7 @@ public class Game {
         return gameMup.getScale();
     }
 
-    public void addExperience() {
+    public void addHeroExperience() {
         int experience = 0;
         if (isGameOver && currentVillain == null)
             experience = 100;
@@ -202,9 +292,13 @@ public class Game {
         {
             experience = currentVillain.getPower();
         }
-
         hero.addExperience(experience);
 
 
+    }
+
+
+    public ArrayList<Villain> getVillainsLoosers() {
+        return villainsLoosers;
     }
 }
