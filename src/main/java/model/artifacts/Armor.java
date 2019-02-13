@@ -2,7 +2,9 @@ package model.artifacts;
 
  //increase the defense
 
-public enum Armor {
+import model.InOutEnumConsole;
+
+public enum Armor implements InOutEnumConsole {
 
     BROTHERHOOD_OF_STEEL(100),
     SCORPION_SUIT(90),
@@ -19,4 +21,27 @@ public enum Armor {
     public int getIncreaseTheDefense() {
         return increaseTheDefense;
     }
+
+    public static void print() {
+        for (Armor c : Armor.values()) {
+            System.out.println(c.name() + " Increase the defence " + c.increaseTheDefense);
+        }
+    }
+
+    @Override
+    public void printAll() {
+        print();
+    }
+
+    @Override
+    public boolean contains(String str) {
+        for (Armor armor : Armor.values())
+        {
+            if (armor.name().equals(str.toUpperCase()))
+                return true;
+        }
+        return false;
+    }
+
+
 }

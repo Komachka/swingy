@@ -1,9 +1,4 @@
-import com.sun.javafx.collections.MappingChange;
-import model.characthers.HeroClass;
-import view.StartGame;
-
-import javax.print.Doc;
-import java.util.*;
+import view.console.StartGameConsole;
 
 public  class Main {
 
@@ -47,7 +42,7 @@ public  class Main {
         game =  builder.buildGame(factory, mode);*/
 
 
-        HeroClass heroClass = HeroClass.ELF;
+     /*   HeroClass heroClass = HeroClass.ELF;
         System.out.println("Elf attack " + heroClass.getAttack());
 
         for (HeroClass p : HeroClass.values())
@@ -55,9 +50,11 @@ public  class Main {
             System.out.println("defence for " + p + " "+ p.getDefense());
         }
 
-        StartGame app = new StartGame();
-        //app.start();
+        StartGameSwing app = new StartGameSwing();
+        //app.start();*/
 
+
+        StartGameConsole app = new StartGameConsole();
 
 
     }

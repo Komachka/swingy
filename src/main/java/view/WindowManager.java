@@ -4,8 +4,11 @@ import model.characthers.Hero;
 
 public interface WindowManager {
 
-    public void showSelectedHero();
-    public void showNewHero();
-    public void showSelectedMission(Hero hero);
-    public void restartGame();
+    void showSelectedHero();
+    void showNewHero();
+    void showSelectedMission(Hero hero);
+    void restartGame();
+    void stop();
+    void setup();
+    void start();
 }

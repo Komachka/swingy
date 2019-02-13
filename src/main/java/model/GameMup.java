@@ -2,7 +2,7 @@ package model;
 
 import model.characthers.Hero;
 import model.characthers.Villain;
-import view.PlayMission;
+import view.swing.PlayMissionSwing;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -29,6 +29,11 @@ public class GameMup {
         WIDTH = this.squareSizeMap * scale;
         HEIGHT = this.squareSizeMap * scale;
         putVillainsOnAMap(hero);
+    }
+
+
+    public int getSquareSizeMap() {
+        return squareSizeMap;
     }
 
     private void putVillainsOnAMap(Hero hero) {
@@ -68,7 +73,7 @@ public class GameMup {
 
     public void calcScale()
     {
-        scale = PlayMission.CANVAS_WIDTH/squareSizeMap;
+        scale = PlayMissionSwing.CANVAS_WIDTH/squareSizeMap;
     }
 
 

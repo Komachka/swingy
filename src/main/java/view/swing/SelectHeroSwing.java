@@ -1,4 +1,4 @@
-package view;
+package view.swing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +9,10 @@ import java.awt.event.MouseEvent;
 
 import controller.CharactersController;
 import storage.HeroStorage;
+import view.WindowManager;
 
-public class SelectHero extends JPanel implements ActionListener {
-    //private static SelectHero selectHero;
+public class SelectHeroSwing extends JPanel implements ActionListener {
+    //private static SelectHeroSwing selectHero;
     private static final String ACTION_SET = "Set";
     private static final String ACTION_CANCEL = "Cancel";
     private WindowManager windowManager;
@@ -25,7 +26,7 @@ public class SelectHero extends JPanel implements ActionListener {
 
 
 
-    public SelectHero(WindowManager windowManager)  {
+    public SelectHeroSwing(WindowManager windowManager)  {
         this.windowManager = windowManager;
         storage = new HeroStorage();
         setUp();

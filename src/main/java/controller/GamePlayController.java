@@ -1,20 +1,17 @@
 package controller;
 
 import model.Game;
-import model.GameMup;
-import view.PlayMission;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import view.IPlayMissionView;
+import view.swing.PlayMissionSwing;
 
 public class GamePlayController {
     //model
     private Game game;
     //view
-    private PlayMission view;
+    private IPlayMissionView view;
 
 
-    public GamePlayController(Game game, PlayMission view) {
+    public GamePlayController(Game game, IPlayMissionView view) {
         this.game = game;
         this.view = view;
         view.createView();
@@ -28,7 +25,11 @@ public class GamePlayController {
 
     public void playGameRound(int direction)
     {
+        System.out.println("Play game round in controller");
         game.playRound(direction);
+        System.out.println("Play game round in controller after");
+        view.updateView();
+
     }
 
 

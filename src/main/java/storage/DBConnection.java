@@ -13,7 +13,7 @@ public class DBConnection {
         try {
             Class.forName("org.sqlite.JDBC"); // check for what is it
             connection = DriverManager.getConnection(URL);
-            System.out.println("Connection to database has been established.");
+            //System.out.println("Connection to database has been established.");
 
         }
         catch (SQLException e)

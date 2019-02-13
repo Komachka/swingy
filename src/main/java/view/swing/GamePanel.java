@@ -1,4 +1,4 @@
-package view;
+package view.swing;
 
 import model.Game;
 import model.characthers.Villain;

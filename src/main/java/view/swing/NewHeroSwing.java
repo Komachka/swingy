@@ -1,4 +1,4 @@
-package view;
+package view.swing;
 
 import controller.CharactersController;
 import model.artifacts.Armor;
@@ -6,13 +6,14 @@ import model.artifacts.Helm;
 import model.artifacts.Weapon;
 import model.characthers.Hero;
 import model.characthers.HeroClass;
+import view.WindowManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewHero extends JPanel implements ActionListener {
+public class NewHeroSwing extends JPanel implements ActionListener {
     private static final String ACTION_SAVE = "Save";
     private static final String ACTION_CANCEL = "Cancel";
     private CharactersController charactersController = new CharactersController();
@@ -24,7 +25,7 @@ public class NewHero extends JPanel implements ActionListener {
     private JComboBox<String> helms;
 
 
-    public NewHero(WindowManager windowManager) {
+    public NewHeroSwing(WindowManager windowManager) {
         this.windowManager = windowManager;
         setSize(450,400);
         initComponents();
@@ -39,19 +40,12 @@ public class NewHero extends JPanel implements ActionListener {
         JLabel labelWeapon = new JLabel("Choose the weapon:  ");
         JLabel labelArmor = new JLabel("Choose the armor:  ");
         JLabel labelHelm = new JLabel("Choose the helm:  ");
-
-
         textUsername = new JTextField(20);
-
-
         JButton cancelButton = new JButton("Cancel");
         JButton buttonSave = new JButton("Submit");
-
-
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 10, 10, 10);
-
         // add components to the panel
         constraints.gridx = 0;
         constraints.gridy = 0;

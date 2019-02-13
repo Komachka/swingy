@@ -1,10 +1,15 @@
-package view;
+package view.swing;
 
 import controller.CharactersController;
 import controller.GamePlayController;
 import model.Game;
 import model.GameMup;
 import model.characthers.Hero;
+import view.IPlayMissionView;
+import view.LevelUpObserver;
+import view.MoveObserver;
+import view.WindowManager;
+import view.swing.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class PlayMission extends JPanel implements ActionListener, MoveObserver, LevelUpObserver{
+public class PlayMissionSwing extends JPanel implements ActionListener, IPlayMissionView,  MoveObserver, LevelUpObserver {
     public static final int CANVAS_WIDTH = 600;
     public static final int CANVAS_HEIGHT = 650;
     public static final int BUTTON_PANEL_WIDTH = 600;
@@ -34,7 +39,7 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver,
 
 
 
-    public PlayMission(Game game, WindowManager windowManager) {
+    public PlayMissionSwing(Game game, WindowManager windowManager) {
         this.windowManager = windowManager;
         this.game = game;
         this.hero = game.getHero();
@@ -112,13 +117,13 @@ public class PlayMission extends JPanel implements ActionListener, MoveObserver,
 
 
     // if win or loose
-    private void showGameOverWindow(String message) {
+    public void showGameOverWindow(String message) {
         System.out.println("Game over window");
         JOptionPane.showMessageDialog(null,message);
 
     }
 
-    private void showFightModeWindow()
+    public void showFightModeWindow()
     {
         System.out.println("Fight window");
         int answer = JOptionPane.showConfirmDialog(this, "FIGHT???\n\n\nCLICK YES TO FIGHT\n CLICK NO TO RUN");

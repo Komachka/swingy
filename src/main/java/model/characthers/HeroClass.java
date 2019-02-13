@@ -1,6 +1,8 @@
 package model.characthers;
 
-public enum HeroClass {
+import model.InOutEnumConsole;
+
+public enum HeroClass implements InOutEnumConsole {
 
     BLACK_MAGE(40, 40),
     ELF(30, 40),
@@ -22,5 +24,31 @@ public enum HeroClass {
 
     public int getDefense() {
         return defense;
+    }
+
+
+    public boolean contains(String name)
+    {
+        for (HeroClass heroClass : HeroClass.values())
+        {
+            if (heroClass.name().equals(name.toUpperCase()))
+                return true;
+        }
+        return false;
+    }
+
+
+
+
+    public static void print() {
+        for (HeroClass c : HeroClass.values()) {
+            System.out.println(c.name() + " Attack " + c.attack + " Defence " + c.defense);
+        }
+    }
+
+
+    @Override
+    public void printAll() {
+        print();
     }
 }

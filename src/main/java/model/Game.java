@@ -50,6 +50,7 @@ public class Game {
 
     public boolean isBodredOver()
     {
+        System.out.println("Border over " + hero.getX() + hero.getY());
         if (hero.getX() <= 0 || hero.getX() >= gameMup.getWIDTH()
                 || hero.getY() <= 0 || hero.getY() >= gameMup.getHEIGHT())
         {
@@ -239,6 +240,10 @@ public class Game {
     }
 
 
+    public int getGameSquare()
+    {
+        return gameMup.getSquareSizeMap();
+    }
 
 
 
@@ -301,4 +306,6 @@ public class Game {
     public ArrayList<Villain> getVillainsLoosers() {
         return villainsLoosers;
     }
+
+
 }

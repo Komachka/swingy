@@ -246,16 +246,16 @@ public class Hero extends Character {
     @Override
     public String toString() {
         return "Hero info\n" +
-                "Name\t" + name + "\n" +
-                "Class\t" + heroClass + "\n" +
-                "Level\t" + level + "\n" +
+                "Name\t\t" + name + "\n" +
+                "Class\t\t" + heroClass + "\n" +
+                "Level\t\t" + level + "\n" +
                 "Experience\t" + experience + "\n" +
-                "Attack\t" + attack + "\n" +
-                "Defense\t" + defense + "\n" +
+                "Attack\t\t" + attack + "\n" +
+                "Defense\t\t" + defense + "\n" +
                 "HitPoints\t" + hitPoints + "\n" +
-                "Weapon\t" + weapon + "\n" +
-                "Armor\t" + armor + "\n" +
-                "Helm\t" + helm + "\n";
+                "Weapon\t\t" + weapon + "\n" +
+                "Armor\t\t" + armor + "\n" +
+                "Helm\t\t" + helm + "\n";
     }
 
 
