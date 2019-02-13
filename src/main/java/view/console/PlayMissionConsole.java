@@ -23,6 +23,10 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
     private GamePlayController gamePlayController;
     private Scanner scanner;
 
+    private static final String HERO = "\uD83D\uDE07\t";
+    private static final String ENEMY = "\uD83D\uDE08\t";
+    private static final String ENEMY_LOOSER = "\uD83D\uDE1E\t";
+
     public PlayMissionConsole(Game game, WindowManager windowManager) {
         this.windowManager = windowManager;
         this.game = game;
@@ -30,7 +34,7 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
         scanner = new Scanner(System.in);
         game.registerObserver((MoveObserver) this);
         game.getHero().registerLevelUpObserver((LevelUpObserver) this);
-        this.gamePlayController = new GamePlayController(game, this);
+        this.gamePlayController = new GamePlayController(game, this, "consol");
         readInputData();
     }
 
@@ -79,19 +83,19 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
     @Override
     public void createView() {
         printMap();
-        System.out.println("----------Print U , R , D, L for move----------");
     }
 
     private void printMap() {
         for (int i = 0; i <game.getGameSquare() ; i++) {
             for (int j = 0; j <game.getGameSquare() ; j++) {
                 if (j == hero.getX()/game.getScale() && i == hero.getY()/game.getScale())
-                    System.out.print("X\t");
+                    System.out.print(HERO);
                 else
                     System.out.print(".\t");
             }
             System.out.println();
         }
+        System.out.println("----------Print U , R , D, L for move----------");
     }
 
     @Override
@@ -111,23 +115,33 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
     public void showEnemies() {
         ArrayList<Villain> villains = game.getEnemies();
         ArrayList<Villain> vLoosers = game.getVillainsLoosers();
-        for (int i = 0; i <game.getGameSquare() ; i++) {
-            for (int j = 0; j <game.getGameSquare() ; j++) {
+        String symbolToPrint;
+        int gameSquare = game.getGameSquare();
+        System.out.println();
+        for (int i = 0; i <gameSquare ; i++) {
+            for (int j = 0; j <gameSquare ; j++) {
+                symbolToPrint = ".\t";
                 for (Villain v: villains) {
                     if (j == v.getX()/game.getScale() && i == v.getY()/game.getScale())
-                        System.out.print("!\t");
+                    {
+                        symbolToPrint = ENEMY;
+                    }
+
                 }
                 for (Villain v: vLoosers) {
                     if (j == v.getX()/game.getScale() && i == v.getY()/game.getScale())
-                        System.out.print("X\t");
+                    {
+                        symbolToPrint = ENEMY_LOOSER;
+                    }
+
                 }
                 if (j == hero.getX()/game.getScale() && i == hero.getY()/game.getScale())
-                    System.out.print("O\t");
-                else
-                    System.out.print(".\t");
+                    symbolToPrint = HERO;
+                System.out.print(symbolToPrint);
             }
             System.out.println();
         }
+        System.out.println();
 
     }
 
@@ -139,7 +153,7 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
 
     @Override
     public void showFightModeWindow() {
-        System.out.println("Fight");
+        System.out.println("Fight mode window");
     }
 
     @Override
@@ -153,10 +167,28 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
     @Override
     public void updatePosition() {
         printMap();
+
     }
 
     @Override
     public void updateFightMode() {
+        System.out.println("Print F to fight");
+        System.out.println("Print R to run");
+        String line;
+        while ((line = scanner.nextLine()) !=StartGameConsole.EXIT)
+        {
+            if (line.equals("F"))
+            {
+                gamePlayController.fight();
+                break;
+            }
+            if (line.equals("R"))
+            {
+                gamePlayController.run();
+            }
+        }
+        if (line.equals(StartGameConsole.EXIT))
+            gameOver();
         showFightModeWindow();
     }
 
@@ -174,12 +206,15 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
 
     @Override
     public void updateLooseMode() {
-        System.out.println("LOOSE GAME");
+        System.out.println("YOU ARE LOOSE");
+        showEnemies();
+        gameOver();
+
     }
 
     @Override
     public void updateFightProgressMode() {
-        System.out.println("FIGHT PROGRESS");
+        System.out.println("---------->Villain power " + game.currentVillain.getPower() + "\n " + "<----------Hero XP " + hero.getHitPoints());
     }
 
     @Override

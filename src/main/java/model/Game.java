@@ -31,19 +31,29 @@ public class Game {
 
     public Game(Hero hero) {
         this.hero = hero;
-        gameMup = new GameMup(hero, villains);
+    }
+
+
+    public void setupGameMup(String gameMode) {
+        this.gameMup = new GameMup(hero, villains);
+        gameMup.calcScale(gameMode);
+        gameMup.putVillainsOnAMap(hero);
+        gameMup.setHEIGHT(getGameSquare() * getScale());
+        gameMup.setWIDTH(getGameSquare() * getScale());
         hero.setX(gameMup.getCenterX());
         hero.setY(gameMup.getCenterY());
+
     }
 
     public boolean playRound(int direction)
     {
         hero.move(direction, gameMup);
         notifyMoveObservers();
-        if (isBodredOver())
-            return true;
         if (isCloseToEnemies())
             return true;
+        if (isBodredOver())
+            return true;
+
 
         return false;
     }
@@ -76,16 +86,14 @@ public class Game {
 
     private boolean isCloseToEnemies() {
 
-        int radius = getScale()-getScale()/2;
+        int radius = getScale();
         for (Villain villain : villains)
         {
             int x1 = villain.getX() - radius;
             int x2 = villain.getX() + radius;
             int y1 = villain.getY() - radius;
             int y2 = villain.getY() + radius;
-
-
-            if (hero.getX() > x1 && hero.getX() < x2 && hero.getY()> y1 && hero.getY() < y2) {
+            if (hero.getX() >= x1 && hero.getX() <= x2 && hero.getY()>= y1 && hero.getY() <= y2) {
                 setFightMode(villain);
                 notifyMoveObserversFightMode();
                 return true;

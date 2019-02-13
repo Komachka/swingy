@@ -25,20 +25,25 @@ public class GameMup {
     public GameMup(Hero hero, ArrayList<Villain> villains) {
         this.squareSizeMap = (hero.getLevel() - 1)*5 + 10 - (hero.getLevel()%2);
         this.villains = villains;
-        calcScale();
-        WIDTH = this.squareSizeMap * scale;
-        HEIGHT = this.squareSizeMap * scale;
-        putVillainsOnAMap(hero);
+
+
     }
 
+
+    public void setWIDTH(int WIDTH) {
+        this.WIDTH = WIDTH;
+    }
+
+    public void setHEIGHT(int HEIGHT) {
+        this.HEIGHT = HEIGHT;
+    }
 
     public int getSquareSizeMap() {
         return squareSizeMap;
     }
 
-    private void putVillainsOnAMap(Hero hero) {
+    void putVillainsOnAMap(Hero hero) {
 
-        //System.out.println("Put villains on map");
         for (int i = 0; i <= hero.getLevel()*10; i++)
         {
             int x = randomWithRange(0, squareSizeMap - 1);
@@ -48,7 +53,6 @@ public class GameMup {
             villains.add(new Villain(x, y, generateVillainPower(hero)));
         }
 
-        //System.out.println("villains.size() " + villains.size());
 
     }
 
@@ -60,7 +64,6 @@ public class GameMup {
         attack = attack < 0 ? -attack : attack;
         defense = defense < 0 ? -defense : defense;
         hitPoints = hitPoints < 0 ? -hitPoints : hitPoints;
-        //System.out.println("Random power " + attack + defense + hitPoints);
         return attack + defense + hitPoints;
     }
 
@@ -71,9 +74,12 @@ public class GameMup {
         return (int)(Math.random() * range) + min;
     }
 
-    public void calcScale()
+    public void calcScale(String gameMode)
     {
-        scale = PlayMissionSwing.CANVAS_WIDTH/squareSizeMap;
+        if (gameMode.equals("gui"))
+            scale = PlayMissionSwing.CANVAS_WIDTH/squareSizeMap;
+        else
+            scale = 1;
     }
 
 

@@ -1,27 +1,12 @@
 import view.console.StartGameConsole;
+import view.swing.StartGameSwing;
 
-public  class Main {
+public  class MainClass {
 
-    interface I1{};
-    interface I2 extends  I1{};
-
-
-    public class C implements I1, I2 {}
-
-
-
-    enum GameModes {
-        GUI,
-        CONSOLE
-    }
-
+    public static String mode = "consol";
 
 
     public static void main(String[] args)  {
-
-
-
-
 
 
 /*
@@ -50,11 +35,12 @@ public  class Main {
             System.out.println("defence for " + p + " "+ p.getDefense());
         }
 
-        StartGameSwing app = new StartGameSwing();
+
         //app.start();*/
 
 
         StartGameConsole app = new StartGameConsole();
+       // StartGameSwing app = new StartGameSwing();
 
 
     }

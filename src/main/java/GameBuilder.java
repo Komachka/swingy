@@ -1,6 +1,6 @@
 public class GameBuilder {
 
-/*    public Game buildGame(GameObjFactory factory, Main.GameModes mode)
+/*    public Game buildGame(GameObjFactory factory, MainClass.GameModes mode)
     {
 
         Game game= new Game();

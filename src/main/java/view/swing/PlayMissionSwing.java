@@ -46,7 +46,7 @@ public class PlayMissionSwing extends JPanel implements ActionListener, IPlayMis
         this.gamePanel = new GamePanel(game);
         game.registerObserver((MoveObserver) this);
         game.getHero().registerLevelUpObserver((LevelUpObserver) this);
-        this.gamePlayController = new GamePlayController(game, this);
+        this.gamePlayController = new GamePlayController(game, this, "gui");
 
     }
 

@@ -9,12 +9,16 @@ public class GamePlayController {
     private Game game;
     //view
     private IPlayMissionView view;
+    private String mode;
 
 
-    public GamePlayController(Game game, IPlayMissionView view) {
+    public GamePlayController(Game game, IPlayMissionView view, String gameMode) {
         this.game = game;
         this.view = view;
+        this.mode = gameMode;
+        game.setupGameMup(gameMode);
         view.createView();
+
 
         //view.createControls();
 
@@ -25,9 +29,7 @@ public class GamePlayController {
 
     public void playGameRound(int direction)
     {
-        System.out.println("Play game round in controller");
         game.playRound(direction);
-        System.out.println("Play game round in controller after");
         view.updateView();
 
     }
