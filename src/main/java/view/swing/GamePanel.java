@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel {
 
     private Shape playerShape;
-    private Color enemyColour =  Color.GREEN;
+    private Color enemyColour =  Color.BLUE;
     private Color looserColour = Color.BLUE;
     private Game game;
 
@@ -54,13 +54,11 @@ public class GamePanel extends JPanel {
 
         for (Villain v : villains)
         {
-            //System.out.println("v.getY() " + v.getY() + "v.getX() " + v.getX());
+
             g2d.setColor(enemyColour);
             g2d.fillOval(v.getX(), v.getY(), game.getScale(), game.getScale());
         }
-
         ArrayList<Villain> loosers = game.getVillainsLoosers();
-        System.out.println("looser count " + loosers.size());
         for (Villain v : loosers)
         {
 
@@ -69,6 +67,8 @@ public class GamePanel extends JPanel {
         }
     }
 
+
+    //TODO show all enemies only if game over
 
 
 

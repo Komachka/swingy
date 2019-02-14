@@ -10,8 +10,6 @@ public class StartGameConsole implements WindowManager {
     public static final String EXIT = "q";
 
     public StartGameConsole() {
-        start();
-
     }
 
     @Override
@@ -43,12 +41,12 @@ public class StartGameConsole implements WindowManager {
 
     @Override
     public void stop() {
-        System.out.println("stop");
+        //System.out.println("stop");
     }
 
     @Override
     public void setup() {
-        System.out.println("set up");
+        //System.out.println("set up");
     }
 
     @Override

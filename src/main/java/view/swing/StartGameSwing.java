@@ -16,10 +16,6 @@ public class StartGameSwing extends JFrame implements WindowManager {
 
     public StartGameSwing() {
         super("Swingy");
-        setup();
-        start();
-
-
     }
 
     private void initComponents()

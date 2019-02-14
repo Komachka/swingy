@@ -1,10 +1,8 @@
+import view.WindowManager;
 import view.console.StartGameConsole;
 import view.swing.StartGameSwing;
 
 public  class MainClass {
-
-    public static String mode = "consol";
-
 
     public static void main(String[] args)  {
 
@@ -39,7 +37,11 @@ public  class MainClass {
         //app.start();*/
 
 
-        StartGameConsole app = new StartGameConsole();
+        WindowManager gameManager = GameObjFactory.newInstance("gui");
+        gameManager.setup();
+        gameManager.start();
+
+        //StartGameConsole app = new StartGameConsole();
        // StartGameSwing app = new StartGameSwing();
 
 

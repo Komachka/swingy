@@ -247,10 +247,10 @@ public class Hero extends Character {
                 "Name\t\t" + name + "\n" +
                 "Class\t\t" + heroClass + "\n" +
                 "Level\t\t" + level + "\n" +
-                "Experience\t" + experience + "\n" +
+                "Experience\t\t" + experience + "\n" +
                 "Attack\t\t" + attack + "\n" +
                 "Defense\t\t" + defense + "\n" +
-                "HitPoints\t" + hitPoints + "\n" +
+                "HitPoints\t\t" + hitPoints + "\n" +
                 "Weapon\t\t" + weapon + "\n" +
                 "Armor\t\t" + armor + "\n" +
                 "Helm\t\t" + helm + "\n";
