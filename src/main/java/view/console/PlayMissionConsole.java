@@ -71,10 +71,9 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
             }
             catch (Exception e)
             {
-                System.out.println("----------WRONG INPUT----------");
+                System.out.println("\t\tWRONG INPUT");
                 inputValue = null;
             }
-            System.out.println("heroDirection " + heroDirection);
         }
         gamePlayController.playGameRound(heroDirection);
 
@@ -153,14 +152,16 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
 
     @Override
     public void showFightModeWindow() {
-        System.out.println("Fight mode window");
+        System.out.println("Fight mode window empty method");
     }
 
     @Override
     public void gameOver() {
-        System.out.println("Game over");
-        System.out.println("-------------------------------------------------");
-        System.out.println();
+        System.out.println("\t\t----------");
+        System.out.println("\t\tGAME OVER");
+        System.out.println("\t\t----------");
+        showEnemies();
+        charactersController.updateHero(hero);
         windowManager.restartGame();
     }
 
@@ -172,42 +173,43 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
 
     @Override
     public void updateFightMode() {
-        System.out.println("Print F to fight");
-        System.out.println("Print R to run");
+        System.out.println("\tYOU NEED TO FIGHT OR RUN!");
+        System.out.println("\t\tPrint F to fight");
+        System.out.println("\t\tPrint R to run");
         String line;
         while ((line = scanner.nextLine()) !=StartGameConsole.EXIT)
         {
-            if (line.equals("F"))
+            if (line.toUpperCase().equals("F"))
             {
                 gamePlayController.fight();
                 break;
             }
-            if (line.equals("R"))
+            if (line.toUpperCase().equals("R"))
             {
                 gamePlayController.run();
+                break;
             }
+            System.out.println("\t\tWRONG INPUT");
         }
         if (line.equals(StartGameConsole.EXIT))
             gameOver();
-        showFightModeWindow();
+
     }
 
     @Override
     public void updateWinEnemyMode() {
-        System.out.println("WIN ENEMY");
+        System.out.println("\t\tYOU WIN THIS ENEMY!");
     }
 
     @Override
     public void updateWinGameMode() {
-        System.out.println("WIN GAME");
-        showEnemies();
+        System.out.println("\t\tYOU WIN THE GAME");
         gameOver();
     }
 
     @Override
     public void updateLooseMode() {
-        System.out.println("YOU ARE LOOSE");
-        showEnemies();
+        System.out.println("\t\tYOU ARE LOOSE");
         gameOver();
 
     }
@@ -219,11 +221,20 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
 
     @Override
     public void updateVillainsOnMup() {
-        System.out.println("updateVillainsOnMup()");
+        System.out.println("updateVillainsOnMup() empty method now");
     }
 
     @Override
     public void showLevelUpWindow() {
-        System.out.println("Level up to " + hero.getLevel());
+        String text = "Level up to " + hero.getLevel();
+        for (int i = 0; i <text.length() + 2 ; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+        System.out.println("|" + text + "|");
+        for (int i = 0; i <text.length() + 2 ; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
     }
 }

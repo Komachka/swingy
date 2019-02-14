@@ -126,13 +126,11 @@ public class StartGameSwing extends JFrame implements WindowManager {
 
 
     public void start() {
-        System.out.println("Start");
         setVisible(true);
     }
 
     public void stop()
     {
-        System.out.println("Stop");
         getContentPane().removeAll();
         repaint();
     }

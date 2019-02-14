@@ -7,7 +7,7 @@ import view.WindowManager;
 import java.util.Scanner;
 
 public class StartGameConsole implements WindowManager {
-    public static final String EXIT = "3";
+    public static final String EXIT = "q";
 
     public StartGameConsole() {
         start();

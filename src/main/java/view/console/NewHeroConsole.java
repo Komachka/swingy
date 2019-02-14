@@ -25,24 +25,26 @@ public class NewHeroConsole {
 
 
     public void createHero() {
-        System.out.println("Start creating a new hero");
-        System.out.println("Print 3 to exit");
+        System.out.println("----------Start creating a new hero----------");
+        System.out.println("\t- Print "+StartGameConsole.EXIT+" to exit");
+        System.out.println("\t- Print hero name");
+        String name;
+        while ((name = scanner.nextLine()).equals(""))
+            System.out.println("----------WRONG INPUT----------");;
+        if (name.equals(StartGameConsole.EXIT))
+                System.exit(0);
 
-        System.out.println();
 
-        System.out.println("Print hero name");
-        String name = scanner.nextLine();
-
-        System.out.println("Choose hero class, print the full name");
+        System.out.println("\t- Choose hero class, print the full name");
         HeroClass heroClass = HeroClass.valueOf(readEnumProperties(HeroClass.values()[0]));
 
         Hero.HeroBuilder builder = new Hero.HeroBuilder(heroClass, name);
 
-        System.out.println("Choose the weapon, print the full name");
+        System.out.println("\t- Choose the weapon, print the full name");
         Weapon weapon = Weapon.valueOf(readEnumProperties(Weapon.values()[0]));
-        System.out.println("Choose the armor, print the full name");
+        System.out.println("\t- Choose the armor, print the full name");
         Armor armor = Armor.valueOf(readEnumProperties(Armor.values()[0]));
-        System.out.println("Choose the helm, print the full name");
+        System.out.println("\t\t- Choose the helm, print the full name");
         Helm helm = Helm.valueOf(readEnumProperties(Helm.values()[0]));
         builder.setAttack(heroClass.getAttack())
                 .setDefense(heroClass.getDefense())
@@ -70,6 +72,8 @@ public class NewHeroConsole {
         {
             try {
                 inputValue = scanner.nextLine();
+                if (inputValue == StartGameConsole.EXIT)
+                    System.exit(0);
                 if (!enymType.contains(inputValue))
                 {
                     throw new Exception();
@@ -77,8 +81,11 @@ public class NewHeroConsole {
             }
             catch (Exception e)
             {
-                System.out.println("WRONG INPUT");
+
+                if (inputValue.equals(StartGameConsole.EXIT))
+                    System.exit(0);
                 inputValue = null;
+                System.out.println("----------WRONG INPUT----------");
             }
         }
         return inputValue.toUpperCase();

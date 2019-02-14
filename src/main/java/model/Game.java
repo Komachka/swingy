@@ -60,7 +60,6 @@ public class Game {
 
     public boolean isBodredOver()
     {
-        System.out.println("Border over " + hero.getX() + hero.getY());
         if (hero.getX() <= 0 || hero.getX() >= gameMup.getWIDTH()
                 || hero.getY() <= 0 || hero.getY() >= gameMup.getHEIGHT())
         {
@@ -114,7 +113,6 @@ public class Game {
         int min = 1;
         int range = max - min + 1;
         int rand = (int)(Math.random() * range) + min;
-        System.out.println("run rand " + rand);
         if (rand % 2 == 0)
             return true;
         else
@@ -153,11 +151,9 @@ public class Game {
     }
 
     private void heroWin() {
-        System.out.println("befor " + villains.size());
         villainsLoosers.add(currentVillain);
         villains.remove(currentVillain);
         currentVillain = null;
-        System.out.println("after " + villains.size());
         notifyMoveObserversRemuveVillain();
         notifyMoveObserversWinEnemyMode();
     }
@@ -168,7 +164,6 @@ public class Game {
         int min = 1;
         int range = max - min + 1;
         int rand = (int)(Math.random() * range) + min;
-        System.out.println("is luck rand " + rand);
         if (rand <= 5)
             return true;
         else

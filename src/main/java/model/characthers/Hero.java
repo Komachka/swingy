@@ -224,12 +224,10 @@ public class Hero extends Character {
 
 
     public void addExperience(int xp) {
-        //int nextLevel = (level + 1) * 1000 + level * level * 450;
         int nextLevel = level * 1000 + (level - 1)* (level - 1) * 450;
         if (experience + xp >= nextLevel)
             increaseLevel();
         experience += xp;
-        System.out.println("Herro experianse is "  + experience);
 
 
     }
