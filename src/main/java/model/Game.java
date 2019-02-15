@@ -4,6 +4,8 @@ import model.characthers.Hero;
 import model.characthers.Villain;
 import view.MoveObserver;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 
@@ -20,7 +22,9 @@ import java.util.ArrayList;
 
 public class Game {
 
+    @Min(1)
     private ArrayList<MoveObserver> moveObserveres = new ArrayList();
+    @NotNull
     private Hero hero;
     private ArrayList<Villain> villains = new ArrayList<>();
     private ArrayList<Villain> villainsLoosers = new ArrayList<>();

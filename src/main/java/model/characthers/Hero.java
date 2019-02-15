@@ -5,27 +5,20 @@ import model.artifacts.Helm;
 import model.artifacts.Weapon;
 import view.LevelUpObserver;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-
-
-
-/*
-
-Hero mage = new Hero.Builder(HeroClass.MAGE, "Riobard").withHairColor(HairColor.BLACK).withWeapon(Weapon.DAGGER).build();
- • Weapon - increases the attack • Armor - increases defense • Helm - increases hit points After choosing a hero the actual game begins. The hero needs to navigate a square map with the size calculated by the formula (level-1)*5+10-(level%2). For example a hero of level 7 will be placed on a 39X39 map.
-
- Leveling up is based on the following formula level*1000+(level−1)2*450. So the necessary experience to level up will follow this pattern: • Level 1 - 1000 XP • Level 2 - 2450 XP • Level 3 - 4800 XP • Level 4 - 8050 XP • Level 5 - 12200 XP
- */
+import javax.validation.constraints.Size;
 
 public class Hero extends Character {
     //TODO add loombok anotations
 
     @NotNull
     private int id;
-    @NotNull
+    @NotNull(message = "The hero name must not be null")
+    @NotBlank(message = "Name can not be empty")
     private String name;
-    @NotNull
+    @NotNull(message = "The hero class must not be null")
     private HeroClass heroClass;
     @NotNull
     private int level;
@@ -38,11 +31,11 @@ public class Hero extends Character {
     @NotNull
     private int hitPoints;
 
-    @NotNull
+    @NotNull(message = "The hero weapon must not be null")
     private Weapon weapon; // increases the attack
-    @NotNull
+    @NotNull(message = "The hero armor must not be null")
     private Armor armor; // increase the defense
-    @NotNull
+    @NotNull(message = "The hero helm must not be null")
     private Helm helm; // increases hit points
 
     private LevelUpObserver levelUpObserver;
@@ -168,12 +161,10 @@ public class Hero extends Character {
             this.defense = defense;
             return this;
         }
-
         public Hero build()
         {
             return new Hero(this);
         }
-
     }
 
 

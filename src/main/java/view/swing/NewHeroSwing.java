@@ -127,23 +127,16 @@ public class NewHeroSwing extends JPanel implements ActionListener {
         if (ACTION_SAVE.equals(e.getActionCommand()))
         {
             String name = textUsername.getText();
-            if (name == null || name.isEmpty())
-            {
-                JOptionPane.showMessageDialog(null,"Name can not be empty");
-                return;
-            }
-
             HeroClass hClass = HeroClass.values()[heroClasses.getSelectedIndex()];
             Weapon weapon = Weapon.values()[weapons.getSelectedIndex()];
             Armor armor = Armor.values()[armors.getSelectedIndex()];
             Helm helm = Helm.values()[helms.getSelectedIndex()];
-            Hero newHero = new Hero.HeroBuilder(hClass,name)
-                    .setAttack(hClass.getAttack())
-                    .setDefense(hClass.getDefense())
-                    .addWeapon(weapon)
-                    .addArmor(armor)
-                    .addHelm(helm)
-                    .build();
+            Hero newHero = charactersController.createHero(name, hClass, weapon, armor, helm);
+            if (newHero == null)
+            {
+                JOptionPane.showMessageDialog(null,"Name can not be empty");
+                return;
+            }
             if (!charactersController.saveHero(newHero))
                 JOptionPane.showMessageDialog(null,"The hero with this name is already exists");
             else

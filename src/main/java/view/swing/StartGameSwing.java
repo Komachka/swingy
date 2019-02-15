@@ -1,15 +1,20 @@
 package view.swing;
 
+import controller.GamePlayController;
+import lanch.MainClass;
 import model.Game;
 import model.characthers.Hero;
 import view.WindowManager;
 
 import javax.swing.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Set;
 
 
 public class StartGameSwing extends JFrame implements WindowManager {
@@ -22,35 +27,23 @@ public class StartGameSwing extends JFrame implements WindowManager {
     {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-
         setLayout(new GridBagLayout());
         JButton selectHeroBut = new JButton();
         JButton createNewHeroBut = new JButton();
-
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
-
-
         JLabel gameName = new JLabel("SWINGY",JLabel.CENTER);
         gameName.setFont(new Font("Serif", Font.BOLD, 32));
-
-
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.anchor = GridBagConstraints.FIRST_LINE_START;
         add(gameName, constraints);
-
         JLabel headerLabel = new JLabel("Choose game settings :",JLabel.CENTER);
         headerLabel.setFont(new Font("Serif", Font.CENTER_BASELINE, 28));
-
-
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.anchor = GridBagConstraints.CENTER;
         add(headerLabel, constraints);
-
-
-
         selectHeroBut.setText("Select Hero");
         selectHeroBut.setFont(new Font("Serif", Font.CENTER_BASELINE, 26));
         selectHeroBut.addActionListener(new ActionListener() {
@@ -62,8 +55,6 @@ public class StartGameSwing extends JFrame implements WindowManager {
         constraints.gridx = 0;
         constraints.gridy = 4;
         add(selectHeroBut, constraints);
-
-
         createNewHeroBut.setText("Create New Hero");
         createNewHeroBut.setFont(new Font("Serif", Font.CENTER_BASELINE, 26));
         createNewHeroBut.addActionListener(new ActionListener() {
@@ -72,12 +63,9 @@ public class StartGameSwing extends JFrame implements WindowManager {
                 showNewHero();
             }
         });
-
         constraints.gridx = 1;
         constraints.gridx = 4;
         add(createNewHeroBut, constraints);
-
-
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent windowEvent){
                 System.exit(0);
@@ -87,15 +75,12 @@ public class StartGameSwing extends JFrame implements WindowManager {
         pack();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-
     }
 
     public void showSelectedHero() {
         SelectHeroSwing selectHero = new SelectHeroSwing(this);
-        setContentPane(selectHero); // we can do it because selectHero extands jframe
+        setContentPane(selectHero);
         pack();
-
-
     }
 
     public void showNewHero() {
@@ -106,6 +91,28 @@ public class StartGameSwing extends JFrame implements WindowManager {
 
     @Override
     public void showSelectedMission(Hero hero) {
+        /*
+        Set<ConstraintViolation<Hero>> violations = null;
+        Validator validator = MainClass.factory.getValidator();
+        if (violations != null)
+        {
+            for (ConstraintViolation<Hero> violation : violations)
+                System.out.println(violation.getMessage());
+        }
+        violations = validator.validate(hero);
+        System.out.println("Name = ");
+        System.out.println(hero.getName());
+        if (violations.size() == 0)
+        {
+            System.out.println("No errors");
+        }
+        else
+        {
+            System.out.println("WTF?!");
+            for (ConstraintViolation<Hero> violation : violations)
+                System.out.println(violation.getMessage());
+        }
+        */
         Game model = new Game(hero);
         PlayMissionSwing view = new PlayMissionSwing(model, this);
         setContentPane(view);
@@ -114,7 +121,6 @@ public class StartGameSwing extends JFrame implements WindowManager {
 
     @Override
     public void restartGame() {
-
         stop();
         setup();
         start();

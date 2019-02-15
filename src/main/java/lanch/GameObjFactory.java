@@ -1,3 +1,5 @@
+package lanch;
+
 import view.WindowManager;
 import view.console.StartGameConsole;
 import view.swing.StartGameSwing;
