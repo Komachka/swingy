@@ -8,18 +8,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
-
-/**
- *
- * When a map is generated, villains of varying power will be spread randomly
- * over the map. When a hero moves to a position occupied by a villain,
- * the hero has 2 options: •
- * Fight, which engages him in a battle with the villain
- * • Run, which gives him a 50% chance of returning to the previous position.
- * If the odds aren’t on his side, he must fight the villain.
- *
- */
-
 public class Game {
 
     @Min(1)
@@ -107,10 +95,6 @@ public class Game {
     }
 
 
-
-
-    //Run, which gives him a 50% chance of returning to the previous position.
-    // If the odds aren’t on his side, he must fight the villain.
     public boolean run()
     {
         int max = 10;
@@ -123,9 +107,6 @@ public class Game {
             return false;
 
     }
-
-
-
 
     public boolean fight()
     {
@@ -253,13 +234,6 @@ public class Game {
     }
 
 
-
-
-
-
-
-
-
     public Hero getHero() {
         return hero;
     }
@@ -305,8 +279,6 @@ public class Game {
             experience = currentVillain.getPower();
         }
         hero.addExperience(experience);
-
-
     }
 
 

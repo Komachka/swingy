@@ -48,16 +48,16 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
                 inputValue = inputValue.toUpperCase();
                 switch (inputValue)
                 {
-                    case "D":
+                    case "S":
                         heroDirection = GameMup.DOWN;
                         break;
-                    case "R":
+                    case "E":
                         heroDirection = GameMup.RIGHT;
                         break;
-                    case "L":
+                    case "W":
                         heroDirection = GameMup.LEFT;
                         break;
-                    case "U":
+                    case "N":
                         heroDirection = GameMup.UP;
                         break;
                     default:
@@ -94,7 +94,7 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
             }
             System.out.println();
         }
-        System.out.println("----------Print U , R , D, L for move----------");
+        System.out.println("----------Print N , E , S, W for move----------");
     }
 
     @Override

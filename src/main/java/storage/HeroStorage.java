@@ -16,11 +16,11 @@ public class HeroStorage {
     private List<Hero> heroes;
     private final static String FILE_NAME = "heroes.txt";
 
+
     public HeroStorage() {
 
         DBManager dbManager = new DBManager();
         this.heroes = dbManager.getAllHeroes();
-        //this.heroes = parseTextFile();
     }
 
 
@@ -40,7 +40,6 @@ public class HeroStorage {
 
             reader = new BufferedReader(new FileReader(FILE_NAME));
             String line;
-            //CharacterFactory factory  = new CharacterFactory();
             while ((line = reader.readLine()) != null)
             {
                 String[] params = line.split(",");
@@ -73,7 +72,10 @@ public class HeroStorage {
     }
 
     public List<String> getAllHeroeNames() {
-        return heroes.stream().map(Hero::getName).collect(Collectors.toList());
+        if (heroes.size() != 0)
+            return heroes.stream().map(Hero::getName).collect(Collectors.toList());
+        else
+            return null;
     }
 
     public Hero getHero(int rollNo)

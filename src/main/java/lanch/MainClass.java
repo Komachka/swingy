@@ -27,6 +27,10 @@ public  class MainClass {
             gameManager.setup();
             gameManager.start();
         }
+        else
+        {
+            System.out.println("Usage ./swingy gui | ./swingy console");
+        }
         factory.close();
     }
 

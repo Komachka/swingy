@@ -1,13 +1,17 @@
 package storage;
 
+import lanch.MainClass;
 import model.artifacts.Armor;
 import model.artifacts.Helm;
 import model.artifacts.Weapon;
 import model.characthers.Hero;
 import model.characthers.HeroClass;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 import java.sql.*;
 import java.util.ArrayList;
-
+import java.util.Set;
 
 
 public class DBManager implements HeroDao {
@@ -127,9 +131,10 @@ public class DBManager implements HeroDao {
 
             while (rs.next())
             {
-                heroes.add(createHero(rs));
+                Hero hero = createHero(rs);
+                if (hero != null)
+                    heroes.add(hero);
             }
-            //System.out.println("Data has been selected");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -160,8 +165,25 @@ public class DBManager implements HeroDao {
                     .setDefense(Integer.parseInt(defense))
                     .setHitPoints(Integer.parseInt(hitPoints))
                     .build();
-            hero.toString();
-            return hero;
+            Set<ConstraintViolation<Hero>> violations = null;
+            Validator validator = MainClass.factory.getValidator();
+            if (violations != null)
+            {
+                for (ConstraintViolation<Hero> violation : violations)
+                    System.out.println(violation.getMessage());
+            }
+            violations = validator.validate(hero);
+            if (violations.size() == 0)
+            {
+                return hero;
+            }
+            else
+            {
+                for (ConstraintViolation<Hero> violation : violations)
+                    System.out.println(violation.getMessage());
+                return null;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

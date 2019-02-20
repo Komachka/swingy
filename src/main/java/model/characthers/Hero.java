@@ -5,13 +5,9 @@ import model.artifacts.Helm;
 import model.artifacts.Weapon;
 import view.LevelUpObserver;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class Hero extends Character {
-    //TODO add loombok anotations
 
     @NotNull
     private int id;
@@ -21,6 +17,7 @@ public class Hero extends Character {
     @NotNull(message = "The hero class must not be null")
     private HeroClass heroClass;
     @NotNull
+    @Max(30)
     private int level;
     @NotNull
     private int experience;
@@ -66,11 +63,6 @@ public class Hero extends Character {
     {
         villain.decreasePower(attack);
     }
-
-
-    //Leveling up is based on the following formula level*1000+(level − 1)2*450.
-    //So the necessary experience to level up will follow this pattern:
-    // • Level 1 - 1000 XP • Level 2 - 2450 XP • Level 3 - 4800 XP • Level 4 - 8050 XP • Level 5 - 12200 XP
 
     public void setDefXP() {
         hitPoints = level * 1000 + (level - 1)* (level - 1) * 450;
