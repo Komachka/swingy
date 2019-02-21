@@ -17,7 +17,7 @@ public class Hero extends Character {
     @NotNull(message = "The hero class must not be null")
     private HeroClass heroClass;
     @NotNull
-    @Max(30)
+    @Max(value = 30, message = "The hero level must be less ot equal to 30. This hero can not be created in this game")
     private int level;
     @NotNull
     private int experience;
@@ -217,7 +217,6 @@ public class Hero extends Character {
 
     private void increaseLevel() {
         level++;
-        //hitPoints += 50 + level * 10;
         attack += level * 3;
         defense += level * 2;
         setDefXP();

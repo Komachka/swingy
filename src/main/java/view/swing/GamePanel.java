@@ -26,16 +26,8 @@ public class GamePanel extends JPanel {
         setBackground(Color.BLUE);
         Graphics2D g2d = (Graphics2D)g;
         g2d.setColor(Color.white);
-        System.out.println(game.getMapW()+ " " +  game.getMapH());
         g2d.drawRect(0, 0, game.getMapW(), game.getMapH());
-        // Save the current transform of the graphics contexts.
-        AffineTransform saveTransform = g2d.getTransform();
-        // Create a identity affine transform, and apply to the Graphics2D context
-        AffineTransform identity = new AffineTransform();
-        g2d.setTransform(identity);
-
         paintVillains(g2d);
-
         playerShape = new Rectangle2D.Double(game.getHeroX(), game.getHeroY(), game.getScale(), game.getScale());
         g2d.setColor(Color.GREEN);
         g2d.fill(playerShape);
@@ -67,12 +59,11 @@ public class GamePanel extends JPanel {
         }
     }
 
-
-    //TODO show all enemies only if game over
-
-
-
     public void setEnemyLooserColour() {
         looserColour = Color.RED;
+    }
+
+    public void hideEnemyes() {
+        enemyColour = Color.BLUE;
     }
 }

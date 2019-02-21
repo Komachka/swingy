@@ -2,10 +2,6 @@ package model.artifacts;
 
 // increases hit points
 
-//figured out how to create enum from database dynamucly and store info about type oh helm armow and weapont in database
-//https://www.niceideas.ch/roller2/badtrash/entry/java_create_enum_instances_dynamically
-//https://bojanv55.wordpress.com/2015/05/25/java-dynamic-enums/
-
 import model.InOutEnumConsole;
 
 public enum  Helm implements InOutEnumConsole {

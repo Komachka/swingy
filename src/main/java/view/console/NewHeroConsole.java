@@ -17,14 +17,14 @@ public class NewHeroConsole {
     private Scanner scanner;
     private CharactersController charactersController = new CharactersController();
 
-    public NewHeroConsole(WindowManager windowManager) {
+    NewHeroConsole(WindowManager windowManager) {
         this.windowManager = windowManager;
         this.scanner = new Scanner(System.in);
         createHero();
     }
 
 
-    public void createHero() {
+    private void createHero() {
         System.out.println("----------Start creating a new hero----------");
         System.out.println("\t- Print "+StartGameConsole.EXIT+" to exit");
         System.out.println("\t- Print hero name");
@@ -63,7 +63,7 @@ public class NewHeroConsole {
 
 
 
-    public  String readEnumProperties(InOutEnumConsole enymType)
+    private   String readEnumProperties(InOutEnumConsole enymType)
     {
         String inputValue = null;
         enymType.printAll();
@@ -90,7 +90,5 @@ public class NewHeroConsole {
         }
         return inputValue.toUpperCase();
     }
-
-
 
 }

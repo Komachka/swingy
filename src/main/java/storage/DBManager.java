@@ -26,17 +26,13 @@ public class DBManager implements HeroDao {
 
         try(Connection connection = DBConnection.getDBConnection()) {
             DatabaseMetaData meta = connection.getMetaData();
-            //System.out.println("The driver name is " + meta.getDriverName());
-            //System.out.println("A new db has been created");
         }
         catch (SQLException e)
         {
-            System.err.println("creteNewDataBase");
             System.err.println(e.getMessage());
         }
         catch (NullPointerException ex)
         {
-            System.err.println("creteNewDataBase");
             System.err.println(ex.getMessage());
         }
 
@@ -46,19 +42,12 @@ public class DBManager implements HeroDao {
 
         try (Connection connection = DBConnection.getDBConnection();
              Statement stmt = connection.createStatement()) {
-            //System.out.println(HeroDataBaseContract.SQL_CREATE_TABLE);
             stmt.execute(HeroDataBaseContract.SQL_CREATE_TABLE);
-            //System.out.println("Table has been created");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
 
-
-    @Override
-    public Hero getHeroById(long id) {
-        return null;
-    }
 
     @Override
     public  boolean insertHero(Hero hero) {
@@ -75,7 +64,6 @@ public class DBManager implements HeroDao {
             pstmt.setString(9, String.valueOf(hero.getArmor().name()));
             pstmt.setString(10, String.valueOf(hero.getHitPoints()));
             pstmt.executeUpdate();
-            //System.out.println("Data has been inserted");
             return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -113,7 +101,6 @@ public class DBManager implements HeroDao {
              PreparedStatement pstmt = connection.prepareStatement(HeroDataBaseContract.SQL_DELETE_BY_ID)) {
             pstmt.setInt(1, hero.getId());
             pstmt.executeUpdate();
-            //System.out.println("Data has been deleted");
             return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());

@@ -14,7 +14,6 @@ public  class MainClass {
 
     public static void main(String[] args)  {
 
-        System.out.print("\033[H\033[2J");
         String gameMode = "";
         if (args.length == 1 && args[0].equals("console")) {
             gameMode = GAME_MODE_CONSOLE;

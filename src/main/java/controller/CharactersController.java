@@ -60,7 +60,7 @@ public class CharactersController {
         else
         {
             for (ConstraintViolation<Hero> violation : violations)
-                System.out.println(violation.getMessage());
+                System.err.println(violation.getMessage());
             return null;
         }
 

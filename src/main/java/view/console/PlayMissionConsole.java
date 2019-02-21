@@ -2,6 +2,7 @@ package view.console;
 
 import controller.CharactersController;
 import controller.GamePlayController;
+import lanch.MainClass;
 import model.Game;
 import model.GameMup;
 import model.characthers.Hero;
@@ -34,7 +35,7 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
         scanner = new Scanner(System.in);
         game.registerObserver((MoveObserver) this);
         game.getHero().registerLevelUpObserver((LevelUpObserver) this);
-        this.gamePlayController = new GamePlayController(game, this, "consol");
+        this.gamePlayController = new GamePlayController(game, this, MainClass.GAME_MODE_CONSOLE);
         readInputData();
     }
 
@@ -102,7 +103,6 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
         return heroDirection;
     }
 
-    //TODO remuve bacause it does not need
     @Override
     public void updateView() {
         printMap();
@@ -177,7 +177,7 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
         System.out.println("\t\tPrint F to fight");
         System.out.println("\t\tPrint R to run");
         String line;
-        while ((line = scanner.nextLine()) !=StartGameConsole.EXIT)
+        while (!(line = scanner.nextLine()).equals(StartGameConsole.EXIT))
         {
             if (line.toUpperCase().equals("F"))
             {

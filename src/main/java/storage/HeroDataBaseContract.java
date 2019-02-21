@@ -1,22 +1,22 @@
 package storage;
 
 public interface HeroDataBaseContract {
-    public static final String TABLE_NAME = "Heroes";
-    public static final String COLUMN_ID = "_ID";
-    public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_HEROCLASS = "class";
-    public static final String COLUMN_LEVEL = "level";
-    public static final String COLUMN_EXPERIENCE = "experience";
-    public static final String COLUMN_ATTACK = "attack";
-    public static final String COLUMN_DEFENSE = "defense";
-    public static final String COLUMN_HP = "hitPoints";
-    public static final String COLUMN_WEAPON = "weapon";
-    public static final String COLUMN_HELM = "helm";
-    public static final String COLUMN_ARMOR = "armor";
+   String TABLE_NAME = "Heroes";
+   String COLUMN_ID = "_ID";
+   String COLUMN_NAME = "name";
+   String COLUMN_HEROCLASS = "class";
+   String COLUMN_LEVEL = "level";
+   String COLUMN_EXPERIENCE = "experience";
+   String COLUMN_ATTACK = "attack";
+   String COLUMN_DEFENSE = "defense";
+   String COLUMN_HP = "hitPoints";
+   String COLUMN_WEAPON = "weapon";
+   String COLUMN_HELM = "helm";
+   String COLUMN_ARMOR = "armor";
 
 
 
-    public static final String SQL_CREATE_TABLE =
+   String SQL_CREATE_TABLE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY, " +
                     COLUMN_NAME + " TEXT NOT NULL UNIQUE, " +
@@ -30,18 +30,18 @@ public interface HeroDataBaseContract {
                     COLUMN_ARMOR + " TEXT NOT NULL, " +
                     COLUMN_HP + " TEXT NOT NULL);";
 
-    public static final String SQL_DELETE_ENTRIES =
+   String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
 
 
-    public static final String SQL_SELECT_ALL =
+   String SQL_SELECT_ALL =
             "SELECT * FROM " + TABLE_NAME;
 
-    public static final String SQL_DELETE_BY_ID =
+   String SQL_DELETE_BY_ID =
             "DELETE FROM "+TABLE_NAME+" WHERE "+COLUMN_ID+" = ?";
 
 
-    public static final String INSERT_INTO =
+   String INSERT_INTO =
             "INSERT INTO "+TABLE_NAME+" ("+
                     COLUMN_NAME +", "+          //1
                     COLUMN_HEROCLASS +", "+     //2
@@ -55,7 +55,7 @@ public interface HeroDataBaseContract {
                     COLUMN_HP +") " +           //10
                     "VALUES(?,?,?,?,?,?,?,?,?,?);";
 
-    public static final String UPDATE_HERO_SQL =
+   String UPDATE_HERO_SQL =
             "UPDATE "+TABLE_NAME+" SET "+
                     COLUMN_LEVEL +" = ?, "+         //1
                     COLUMN_EXPERIENCE +" = ? , "+   //2
@@ -66,6 +66,4 @@ public interface HeroDataBaseContract {
                     COLUMN_ARMOR +" = ?, "+         //7
                     COLUMN_HP +" = ? " +            //8
                     "where "+COLUMN_ID+" = ?;";
-
-
 }

@@ -9,7 +9,6 @@ import view.IPlayMissionView;
 import view.LevelUpObserver;
 import view.MoveObserver;
 import view.WindowManager;
-import view.swing.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,10 +31,10 @@ public class PlayMissionSwing extends JPanel implements ActionListener, IPlayMis
     private GamePanel gamePanel;
     private WindowManager windowManager;
 
-    JButton buttonUp = new JButton("North");
-    JButton buttonRight = new JButton("East");
-    JButton buttonDown = new JButton("South");
-    JButton buttonLeft = new JButton("West");
+    JButton buttonUp = new JButton("North \u2191");
+    JButton buttonRight = new JButton("East \u2192");
+    JButton buttonDown = new JButton("South \u2193");
+    JButton buttonLeft = new JButton("West \u2190");
 
 
 
@@ -113,19 +112,13 @@ public class PlayMissionSwing extends JPanel implements ActionListener, IPlayMis
         gamePanel.setEnemyColour();
     }
 
-
-
-
-    // if win or loose
     public void showGameOverWindow(String message) {
-        System.out.println("Game over window");
         JOptionPane.showMessageDialog(null,message);
 
     }
 
     public void showFightModeWindow()
     {
-        System.out.println("Fight window");
         int answer = JOptionPane.showConfirmDialog(this, "FIGHT???\n\n\nCLICK YES TO FIGHT\n CLICK NO TO RUN");
         if (answer == JOptionPane.YES_OPTION) {
             gamePlayController.fight();
@@ -148,13 +141,11 @@ public class PlayMissionSwing extends JPanel implements ActionListener, IPlayMis
 
     @Override
     public void updatePosition() {
-        System.out.println("--------------------------Update position mode---------------------------------");
         updateView();
     }
 
     @Override
     public void updateFightMode() {
-        System.out.println("--------------------------Update fight mode---------------------------------");
         showEnemies();
         updateView();
         showFightModeWindow();
@@ -162,17 +153,19 @@ public class PlayMissionSwing extends JPanel implements ActionListener, IPlayMis
 
     @Override
     public void updateWinEnemyMode() {
-        System.out.println("--------------------------Update win mode---------------------------------");
         game.addHeroExperience();
         JOptionPane.showMessageDialog(null,"You are win with this enemy");
         updateView();
-        showCurentEnemy();
+        showCurentLooserEnemy();
+        hideCurentEnemy();
 
     }
 
-    private void showCurentEnemy() {
+    private void showCurentLooserEnemy() {
         gamePanel.setEnemyLooserColour();
     }
+
+    private void hideCurentEnemy() {gamePanel.hideEnemyes();}
 
 
     @Override
@@ -184,14 +177,14 @@ public class PlayMissionSwing extends JPanel implements ActionListener, IPlayMis
 
     @Override
     public void updateLooseMode() {
-        System.out.println("--------------------------Update loose mode---------------------------------");
         showGameOverWindow("YOU ARE LOOSER");
         gameOver();
     }
 
     @Override
     public void updateFightProgressMode() {
-        JOptionPane.showMessageDialog(null,"Villain power " + game.currentVillain.getPower() + "\n " + "Hero XP " + hero.getHitPoints());
+        System.out.println("Villain power " + game.currentVillain.getPower() + "\n " + "Hero XP " + hero.getHitPoints());
+        //JOptionPane.showMessageDialog(null,);
     }
 
     public int getHeroDirection() {
@@ -201,10 +194,7 @@ public class PlayMissionSwing extends JPanel implements ActionListener, IPlayMis
     @Override
     public void updateVillainsOnMup()
     {
-        //this.gamePanel = new GamePanel(game);
-        //setGamePanel();
         updateView();
-        System.out.println("-------------------------------------Update enemies on mup------------------------------");
     }
 
     @Override

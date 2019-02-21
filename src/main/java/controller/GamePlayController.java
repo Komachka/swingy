@@ -5,9 +5,7 @@ import view.IPlayMissionView;
 import view.swing.PlayMissionSwing;
 
 public class GamePlayController {
-    //model
     private Game game;
-    //view
     private IPlayMissionView view;
     private String mode;
 
@@ -17,21 +15,14 @@ public class GamePlayController {
         this.view = view;
         this.mode = gameMode;
         game.setupGameMup(gameMode);
+        this.mode = gameMode;
         view.createView();
-
-
-        //view.createControls();
-
-        //view.disableStopMenuItem();
-        //view.enableStartMenuItem();
-        //model.initialize();
     }
 
     public void playGameRound(int direction)
     {
         game.playRound(direction);
         view.updateView();
-
     }
 
 
