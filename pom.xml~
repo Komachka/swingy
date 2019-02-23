@@ -15,9 +15,7 @@
                 <configuration>
 				  <archive>
 					<manifest>
-					  <addClasspath>true</addClasspath>
-                      <classpathPrefix>lib/</classpathPrefix>
-					  <mainClass>lanch.MainClass</mainClass>
+					   <mainClass>lanch.MainClass</mainClass>
 					</manifest>
 					</archive>
 					<source>1.8</source>

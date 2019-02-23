@@ -15,9 +15,9 @@ public  class MainClass {
     public static void main(String[] args)  {
 
         String gameMode = "";
-        if (args.length == 1 && args[0].equals("console")) {
+        if (args.length == 1 && args[0].equals(GAME_MODE_CONSOLE)) {
             gameMode = GAME_MODE_CONSOLE;
-        } else if (args.length == 1 && args[0].equals("gui")) {
+        } else if (args.length == 1 && args[0].equals(GAME_MODE_GUI)) {
             gameMode = GAME_MODE_GUI;
         }
         WindowManager gameManager = GameObjFactory.newInstance(gameMode);
