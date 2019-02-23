@@ -75,7 +75,7 @@ public class SelectHeroConsole {
             }
             catch (Exception e)
             {
-                System.out.println("----------WRONG INPUT----------");
+                System.out.println("\033[31;1m----------WRONG INPUT----------\033[0m");
                 inputValue = null;
             }
         }

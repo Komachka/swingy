@@ -86,16 +86,26 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
     }
 
     private void printMap() {
-        for (int i = 0; i <game.getGameSquare() ; i++) {
-            for (int j = 0; j <game.getGameSquare() ; j++) {
+        ArrayList<Villain> vLoosers = game.getVillainsLoosers();
+        String symbolToPrint;
+        int gameSquare = game.getGameSquare();
+
+        for (int i = 0; i <gameSquare ; i++) {
+            for (int j = 0; j <gameSquare ; j++) {
+                symbolToPrint = ".\t";
+                for (Villain v: vLoosers) {
+                    if (j == v.getX()/game.getScale() && i == v.getY()/game.getScale())
+                    {
+                        symbolToPrint = ENEMY_LOOSER;
+                    }
+                }
                 if (j == hero.getX()/game.getScale() && i == hero.getY()/game.getScale())
-                    System.out.print(HERO);
-                else
-                    System.out.print(".\t");
+                    symbolToPrint = HERO;
+                System.out.print(symbolToPrint);
             }
             System.out.println();
         }
-        System.out.println("----------Print N , E , S, W for move----------");
+        System.out.println("\033[34m----------Print N ↑ , E → , S ↓, W ← for move----------\033[0m");
     }
 
     @Override
@@ -146,13 +156,13 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
 
     @Override
     public void showGameOverWindow(String message) {
-        System.out.println("show game over");
+
 
     }
 
     @Override
     public void showFightModeWindow() {
-        System.out.println("Fight mode window empty method");
+
     }
 
     @Override
@@ -166,16 +176,10 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
     }
 
     @Override
-    public void updatePosition() {
-        printMap();
-
-    }
-
-    @Override
     public void updateFightMode() {
-        System.out.println("\tYOU NEED TO FIGHT OR RUN!");
-        System.out.println("\t\tPrint F to fight");
-        System.out.println("\t\tPrint R to run");
+        System.out.println("\t\033[31;1mYOU NEED TO FIGHT OR RUN!\033[0m");
+        System.out.println("\t\tPrint \033[31;1mF\033[0m to fight");
+        System.out.println("\t\tPrint \033[31;1mR\033[0m to run");
         String line;
         while (!(line = scanner.nextLine()).equals(StartGameConsole.EXIT))
         {
@@ -203,13 +207,13 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
 
     @Override
     public void updateWinGameMode() {
-        System.out.println("\t\tYOU WIN THE GAME");
+        System.out.println("\t\t\033[32;1;2mYOU WIN THE GAME \033[0m");
         gameOver();
     }
 
     @Override
     public void updateLooseMode() {
-        System.out.println("\t\tYOU ARE LOOSE");
+        System.out.println("\t\t\033[31;1mYOU ARE LOOSE\033[0m");
         gameOver();
 
     }
@@ -221,7 +225,7 @@ public class PlayMissionConsole implements IPlayMissionView, MoveObserver, Level
 
     @Override
     public void updateVillainsOnMup() {
-        System.out.println("updateVillainsOnMup() empty method now");
+
     }
 
     @Override

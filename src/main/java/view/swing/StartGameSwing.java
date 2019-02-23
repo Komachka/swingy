@@ -91,28 +91,6 @@ public class StartGameSwing extends JFrame implements WindowManager {
 
     @Override
     public void showSelectedMission(Hero hero) {
-        /*
-        Set<ConstraintViolation<Hero>> violations = null;
-        Validator validator = MainClass.factory.getValidator();
-        if (violations != null)
-        {
-            for (ConstraintViolation<Hero> violation : violations)
-                System.out.println(violation.getMessage());
-        }
-        violations = validator.validate(hero);
-        System.out.println("Name = ");
-        System.out.println(hero.getName());
-        if (violations.size() == 0)
-        {
-            System.out.println("No errors");
-        }
-        else
-        {
-            System.out.println("WTF?!");
-            for (ConstraintViolation<Hero> violation : violations)
-                System.out.println(violation.getMessage());
-        }
-        */
         Game model = new Game(hero);
         PlayMissionSwing view = new PlayMissionSwing(model, this);
         setContentPane(view);
@@ -142,7 +120,6 @@ public class StartGameSwing extends JFrame implements WindowManager {
         setMaximumSize(new Dimension(800, 900));
         setMinimumSize(new Dimension(800, 900));
         initComponents();
-
     }
 
 }

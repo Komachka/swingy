@@ -40,7 +40,6 @@ public class Game {
     public boolean playRound(int direction)
     {
         hero.move(direction, gameMup);
-        notifyMoveObservers();
         if (isCloseToEnemies())
             return true;
         if (isBodredOver())
@@ -170,13 +169,6 @@ public class Game {
         }
     }
 
-    //notify move
-    public void notifyMoveObservers() {
-        for(int i = 0; i < moveObserveres.size(); i++) {
-            MoveObserver observer = (MoveObserver) moveObserveres.get(i);
-            observer.updatePosition();
-        }
-    }
 
     //notify win enemy
     private void notifyMoveObserversWinEnemyMode() {

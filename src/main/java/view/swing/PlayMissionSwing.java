@@ -137,12 +137,7 @@ public class PlayMissionSwing extends JPanel implements ActionListener, IPlayMis
         charactersController.updateHero(hero);
         windowManager.restartGame();
     }
-
-
-    @Override
-    public void updatePosition() {
-        updateView();
-    }
+    
 
     @Override
     public void updateFightMode() {

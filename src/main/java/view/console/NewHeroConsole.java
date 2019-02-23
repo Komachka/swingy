@@ -30,16 +30,13 @@ public class NewHeroConsole {
         System.out.println("\t- Print hero name");
         String name;
         while ((name = scanner.nextLine()).equals(""))
-            System.out.println("----------WRONG INPUT----------");;
+             System.out.println("\033[31;1m----------WRONG INPUT----------\033[0m");;
         if (name.equals(StartGameConsole.EXIT))
                 System.exit(0);
 
-
         System.out.println("\t- Choose hero class, print the full name");
         HeroClass heroClass = HeroClass.valueOf(readEnumProperties(HeroClass.values()[0]));
-
         Hero.HeroBuilder builder = new Hero.HeroBuilder(heroClass, name);
-
         System.out.println("\t- Choose the weapon, print the full name");
         Weapon weapon = Weapon.valueOf(readEnumProperties(Weapon.values()[0]));
         System.out.println("\t- Choose the armor, print the full name");
@@ -85,7 +82,7 @@ public class NewHeroConsole {
                 if (inputValue.equals(StartGameConsole.EXIT))
                     System.exit(0);
                 inputValue = null;
-                System.out.println("----------WRONG INPUT----------");
+                System.out.println("\033[31;1m----------WRONG INPUT----------\033[0m");
             }
         }
         return inputValue.toUpperCase();

@@ -14,20 +14,20 @@ public class StartGameConsole implements WindowManager {
 
     @Override
     public void showSelectedHero() {
-        System.out.println("------------------Show selected hero------------------");
+        System.out.println("------------------Selected hero------------------");
         new SelectHeroConsole(this);
     }
 
     @Override
     public void showNewHero() {
-        System.out.println("------------------Show new hero------------------");
+        System.out.println("------------------Create a new hero------------------");
         new NewHeroConsole(this);
 
     }
 
     @Override
     public void showSelectedMission(Hero hero) {
-        System.out.println("------------------Show selected mission------------------");
+        System.out.println("------------------Mission Start------------------");
         Game game = new Game(hero);
         new PlayMissionConsole(game, (WindowManager)this);
     }
@@ -51,7 +51,7 @@ public class StartGameConsole implements WindowManager {
 
     @Override
     public void start() {
-        System.out.println("----------WELCOME IN SWINGY GAME----------");
+        System.out.println("\033[34m----------WELCOME IN SWINGY GAME----------\033[0m");
         System.out.println("\t- Print 1 to create a hero");
         System.out.println("\t- Print 2 to select already created hero\t");
         System.out.println("\t- Print "+EXIT+" to exit\t");
